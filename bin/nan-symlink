@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+cd -- "$(dirname "$0")/.." || exit 1
+__dotfiles_dir="$(pwd)"
+. "${__dotfiles_dir}/lib/pretty.sh"
+
+__nan_symlinking() {
+  printf '\033[0;32m==> OK:   \033[0;35m%s\033[0;m -> %s\033[0;m\n' "$1" "$2"
+}
+
+# symlinking helper function for ~/.dotfiles
+# $1 source file in $DOTFILES, assuming ${HOME}/.dotfiles
+# $2 dest file relative to $HOME
+__nan_symlink() {
+  local source_path="${__dotfiles_dir}/${1}"
+  local full_target_path="${HOME}/${2}"
+  local target_dir
+
+  ln -fns "$source_path" "$full_target_path"
+}
+
+__nan_symlink "$@"
