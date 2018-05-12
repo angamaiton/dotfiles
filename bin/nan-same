@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+cd -- "$(dirname "$0")/.." || exit 1
+__dotfiles_dir="$(pwd)"
+. "${__dotfiles_dir}/lib/helpers.sh"
+. "${__dotfiles_dir}/lib/pretty.sh"
+
+__nan_same() {
+  local source_path="$1"
+  local target_path="$2"
+
+  if [[ -f "$target_path" ]] || [[ -d "$target_path" ]]; then
+    local resolved_path
+    if __nan_has "realpath"; then
+      resolved_path=$(realpath "$target_path")
+    elif __nan_has "readlink" && [[ "$(uname)" == "Darwin" ]]; then
+      resolved_path=$(readlink "$target_path")
+    else
+      __nan_err "$target_path exists, but may not be properly linked."
+      # http://www.tldp.org/LDP/abs/html/exitcodes.html
+      return 126
+    fi
+
+    [[ "$resolved_path" == "$target_path" ]] && {
+      __nan_status "${target_path} already linked to ${resolved_path}."
+      return 0
+    }
+
+    __nan_warn "${target_path} not linked to ${resolved_path}."
+    return 10
+  fi
+
+  # If it doesn't exist
+  __nan_status "${target_path} not found."
+  return 20
+}
+
+__nan_same "$@"

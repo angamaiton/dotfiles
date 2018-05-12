@@ -4,6 +4,7 @@
 # Sourced by $ZDOTDIR/.zprofile if in a ZSH login shell
 # NOTE: macOS always starts a login shell
 
+NAN_SOURCE="${NAN_SOURCE} -> dot.profile {"
 [ -z "$NAN_INIT" ] && . "${HOME}/.dotfiles/lib/init.sh"
 
 # ==============================================================================
@@ -11,3 +12,14 @@
 # ==============================================================================
 
 . "${DOTFILES}/lib/helpers.sh"
+
+# ==============================================================================
+# Local path (?)
+# ==============================================================================
+
+PATH="${DOTFILES}/bin:$PATH"
+export PATH
+
+[ -n "$NAN_SH" ] && . "${DOTFILES}/shell/interactive.sh"
+
+export NAN_SOURCE="${NAN_SOURCE} }"

@@ -16,6 +16,24 @@ __nan_symlink() {
   local full_target_path="${HOME}/${2}"
   local target_dir
 
+  nan-same "$source_path" "$full_target_path"
+  local result=$?
+  
+  if (( result == 0 )); then
+    return
+  elif (( result == 10 )); then
+    __nan_status "Found different ${full_target_path}."
+    read -p "          Overwrite? [y/N] " -r
+    if [[ -n "$CI" ]] || [[ ! $REPLY =~ ^[Yy]$ ]]; then
+      __nan_warn "Skipped ${full_target_path}."
+      return
+    fi
+  elif (( result != 20 )); then
+    return
+  fi
+
+  __nan_symlinking "${full_target_path}" "${source_path}"
+
   ln -fns "$source_path" "$full_target_path"
 }
 

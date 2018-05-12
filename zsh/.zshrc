@@ -1,5 +1,12 @@
 # VARIOUS THINGS SHOULD BE LOADED BEFORE THIS POINT
 
+# sourced only on interactive/TTY
+# sourced on login after zprofile
+# sourced when you type ZSH
+
+[[ -n "$TMUX" ]] && NAN_SOURCE="${NAN_SOURCE} -> ____TMUX____ {"
+NAN_SOURCE="${NAN_SOURCE} -> .zshrc {"
+
 # echo $DOTFILES
 . "${HOME}/.dotfiles/lib/dot.profile"
 . "${DOTFILES}/lib/interactive.sh"
@@ -14,8 +21,20 @@ __load_settings() {
       done
     fi
 
-    for config in "$_dir"/**/*; do
-      . $config
+    for config in "$_dir"/**/*(N-.); do
+      case "$config" in
+        "$_dir"/pre/*)
+          :
+          ;;
+        "$_dir"/post/*)
+          :
+          ;;
+        *)
+          if [[ -f $config && ${config:e} != "zwc" ]]; then
+            . $config
+          fi
+          ;;
+      esac
     done
 
     if [ -d "$_dir/post" ]; then
@@ -28,5 +47,9 @@ __load_settings() {
     fi
   fi
 }
-# echo "From ZSHRC – ${ZDOTDIR}"
+echo "From ZSHRC – ${ZDOTDIR}"
 __load_settings "${ZDOTDIR}/config"
+
+export NAN_SOURCE="${NAN_SOURCE} }"
+
+echo $NAN_SOURCE
