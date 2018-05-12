@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+if [[ -z "$DOTFILES" ]]; then
+  # best way of getting current directory, apparently
+  cd -- "$(dirname "$0")/.." || exit 1
+  DOTFILES="$(pwd)"
+  # echo $DOTFILES
+fi
+. "${DOTFILES}/lib/helpers.sh"
+. "${DOTFILES}/lib/pretty.sh"
+# export PATH="${DOTFILES}/bin:${PATH}"
+
+__symlink() {
+  __nan_status "Symlinking dotfiles..."
+}
+
+__symlink
