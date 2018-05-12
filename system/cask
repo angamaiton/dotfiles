@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -e
+
+brew update
+
+# ============================================================================
+# Applications
+# ============================================================================
+
+# full socks5+DHT+blocklist support
+brew cask install deluge
+
+# brew cask install docker
+brew cask install firefox
+brew cask install gpgtools
+brew cask install hammerspoon
+brew cask install marked
+
+# ============================================================================
+# Applications (beta)
+# ============================================================================
+
+brew cask install iterm-beta

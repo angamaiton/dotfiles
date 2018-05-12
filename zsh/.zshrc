@@ -47,9 +47,7 @@ __load_settings() {
     fi
   fi
 }
-echo "From ZSHRC – ${ZDOTDIR}"
+
 __load_settings "${ZDOTDIR}/config"
 
 export NAN_SOURCE="${NAN_SOURCE} }"
-
-echo $NAN_SOURCE

@@ -18,6 +18,13 @@ mkdir -p -- "${HOME}/.config"
 __symlink() {
   __nan_status "Symlinking dotfiles..."
 
+  case "$OSTYPE" in
+    darwin*)
+      nan-symlink "system/macOS/dot.hushlogin" ".hushlogin"
+    ;;
+  esac
+
+  # Shell
   nan-symlink "zsh/dot.zshenv" ".zshenv"
 
   __nan_status "Done! [symlink.sh]"
