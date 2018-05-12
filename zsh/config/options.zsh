@@ -35,20 +35,14 @@ setopt INTERACTIVE_COMMENTS           # allow comments in shell
 setopt NO_BEEP
 setopt VI
 
-# Make sure zplug is installed
-if __nan_has 'curl'; then
-  if [[ ! -d "${XDG_CONFIG_HOME}/zplug" ]]; then
-    __nan_warn "[MISSING] zplug is not installed!"
-    echo -n "Enter [y/n] : " ; read opt
-    if [[ $opt =~ ^[Yy]$ ]]; then
-      curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-      . "${ZPLUG_HOME}/init.zsh"
-      return
-    fi
-  else
-    . "${ZPLUG_HOME}/init.zsh"
-    . "${ZDOTDIR}/config/post/zplug.zsh"
-  fi
-else
-  __nan_warn "[MISSING] curl is not installed (for some reason)!"
-fi
+# ============================================================================
+# Completion settings
+# Order by * specificity
+# ============================================================================
+
+# --------------------------------------------------------------------------
+# Completion: Caching
+# --------------------------------------------------------------------------
+
+zstyle ':completion:*' use-cache true
+zstyle ':completion:*' cache-path "${XDG_CACHE_HOME}/.zcache"

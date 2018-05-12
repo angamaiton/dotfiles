@@ -7,47 +7,43 @@
 [[ -n "$TMUX" ]] && NAN_SOURCE="${NAN_SOURCE} -> ____TMUX____ {"
 NAN_SOURCE="${NAN_SOURCE} -> .zshrc {"
 
-# echo $DOTFILES
 . "${HOME}/.dotfiles/lib/dot.profile"
 . "${DOTFILES}/lib/interactive.sh"
 
-__load_settings() {
-  _dir="$1"
-  if [ -d "$_dir" ]; then
-    if [ -d "$_dir/pre" ]; then
-      for config in "$_dir"/pre/**/*(N-.); do
-        # if [ ${config:e} = "zwc" ] ; then continue ; fi
-        . $config
-      done
-    fi
+# dedupe these path arrays (they shadow PATH, FPATH, etc)
+# typeset -gU cdpath path fpath manpath
 
-    for config in "$_dir"/**/*(N-.); do
-      case "$config" in
-        "$_dir"/pre/*)
-          :
-          ;;
-        "$_dir"/post/*)
-          :
-          ;;
-        *)
-          if [[ -f $config && ${config:e} != "zwc" ]]; then
-            . $config
-          fi
-          ;;
-      esac
-    done
+# ============================================================================
+# Options
+# ============================================================================
 
-    if [ -d "$_dir/post" ]; then
-      # what is the (N-.) part
-      for config in "$_dir"/post/**/*(N-.); do
-        # What the fuck does this do?
-        # if [ ${config:e} = "zwc" ] ; then continue ; fi
-        . $config
-      done
-    fi
+. "${ZDOTDIR}/config/options.zsh"
+
+# ============================================================================
+# zplugin
+# ============================================================================
+
+if __nan_has 'wget'; then
+  if [[ ! -d "${ZDOTDIR}/.zplugin" ]]; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
   fi
+  __nan_source "${ZDOTDIR}/.zplugin/bin/zplugin.zsh" || echo "[MISSING] install zplugin."
+  __nan_has 'zplugin' && {
+  autoload -Uz _zplugin
+  (( ${+_comps} )) && _comps[zplugin]=_zplugin
+  # Must be sourced above compinit
+  __nan_source "${ZDOTDIR}/zplugin.zsh"
 }
+else
+  __nan_warn "wget is required for zplugin."
+fi
 
-__load_settings "${ZDOTDIR}/config"
+# ============================================================================
+# compinit
+# ============================================================================
+
+# must be after sourcing zplugin and before cdreplay
+autoload -Uz compinit
+compinit
 
 export NAN_SOURCE="${NAN_SOURCE} }"

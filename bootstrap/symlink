@@ -18,6 +18,14 @@ mkdir -p -- "${HOME}/.config"
 __symlink() {
   __nan_status "Symlinking dotfiles..."
 
+  # XDG-compatible
+  nan-symlink "git/dot.gitconfig" ".config/git/config"
+  nan-symlink "git/dot.gitignore" ".config/git/ignore"
+
+  # (n)vim
+  nan-symlink  "vim" ".vim"
+  nan-symlink  "vim" ".config/nvim"
+
   case "$OSTYPE" in
     darwin*)
       nan-symlink "system/macOS/dot.hushlogin" ".hushlogin"

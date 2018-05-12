@@ -1,0 +1,36 @@
+if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
+  syntax on
+endif
+
+if exists('g:loaded_nan') | finish | endif
+let g:loaded_nan = 1
+
+let g:nan#vim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
+
+" ----------------------------------------------------------------------------
+" Plugins: autoinstall vim-plug, define plugins, install plugins if needed
+" ----------------------------------------------------------------------------
+
+" function! nanplug#install#Install() abort
+"   execute 'silent !curl -fLo '
+"         \ . g:nan#vim_dir . '/autoload/plug.vim '
+"         \ . 'https://raw.githubusercontent.com/'
+"         \ . 'junegunn/vim-plug/master/plug.vim'
+" endfunction
+
+" if executable('git')
+"   let s:has_plug = !empty(glob(expand(g:nan#vim_dir . '/autoload/plug.vim')))
+"   " Load vim-plug and its plugins?
+"   " if !s:has_plug && executable('curl')
+"   "   call nanplug#install#Install()
+"   "   let s:has_plug = 1
+"   " endif
+" endif
+
+" ============================================================================
+" Bundles
+" ============================================================================
+
+if filereadable(expand("~/.vimrc.bundles"))
+  source ~/.vimrc.bundles
+endif
