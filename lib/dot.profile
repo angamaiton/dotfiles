@@ -20,6 +20,6 @@ NAN_SOURCE="${NAN_SOURCE} -> dot.profile {"
 PATH="${DOTFILES}/bin:$PATH"
 export PATH
 
-[ -n "$NAN_SH" ] && . "${DOTFILES}/shell/interactive.sh"
+[ -n "$NAN_SH" ] && . "${DOTFILES}/lib/interactive.sh"
 
 export NAN_SOURCE="${NAN_SOURCE} }"

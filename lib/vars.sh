@@ -48,6 +48,16 @@ export XDG_DATA_HOME="${HOME}/.local/share"
 export XDG_DOWNLOAD_DIR="${XDG_DOWNLOAD_DIR:-${HOME}/Downloads}"
 
 # ============================================================================
+# History -- except HISTFILE location is set by shell rc file
+# ============================================================================
+
+export HISTSIZE=50000
+export HISTFILESIZE=$HISTSIZE
+export SAVEHIST=$HISTSIZE
+export HISTCONTROL=ignoredups
+export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
+
+# ============================================================================
 # Miscellaneous
 # ============================================================================
 

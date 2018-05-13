@@ -1,36 +1,72 @@
-if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
-  syntax on
-endif
+" ==========================================================================
+" 1. Settings variables
+" ==========================================================================
 
-if exists('g:loaded_nan') | finish | endif
-let g:loaded_nan = 1
+let g:mapleader = " "
+
+let g:nan_use_completion = has('nvim') && has('python3')
+
+" ============================================================================
+" 2. Personal defaults
+" May be overridden by **/plugins, after/plugins and **/ftplugins
+" ============================================================================
+
+set modeline
+
+" Pretty quick... errorprone on old vim so only apply to nvim
+if has('nvim') | set updatetime=250 | endif
+
+" ----------------------------------------------------------------------------
+" 2.1 Display
+" ----------------------------------------------------------------------------
+
+set title                              " wintitle = filename - vim
+
+set novisualbell                       " no flashes
+set noerrorbells                       " no beeps
+
+set number
+set numberwidth=5                      " context around current cursor position
+set scrolloff=8
+set sidescrolloff=16
+
+set textwidth=78                      " after column 80, &tw+3
+set colorcolumn=+3
+set colorcolumn+=120
+set cursorline
+
+set synmaxcol=512                     " don't syntax highlight long lines
+
+" ============================================================================
+" Plugins: autoinstall vim-plug, define plugins, install plugins if needed
+" ============================================================================
 
 let g:nan#vim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
+let g:nan#plug_dir = '/vendor/'
+let g:nan#plug_absdir = g:nan#vim_dir . g:nan#plug_dir
 
-" ----------------------------------------------------------------------------
-" Plugins: autoinstall vim-plug, define plugins, install plugins if needed
-" ----------------------------------------------------------------------------
 
-" function! nanplug#install#Install() abort
-"   execute 'silent !curl -fLo '
-"         \ . g:nan#vim_dir . '/autoload/plug.vim '
-"         \ . 'https://raw.githubusercontent.com/'
-"         \ . 'junegunn/vim-plug/master/plug.vim'
-" endfunction
+if executable('git')
+  let s:has_plug = !empty(glob(expand(g:nan#vim_dir . '/autoload/plug.vim')))
+  if !s:has_plug && executable('curl')
+    call nanplug#install#Install()
+    let s:has_plug = 1
+  endif
 
-" if executable('git')
-"   let s:has_plug = !empty(glob(expand(g:nan#vim_dir . '/autoload/plug.vim')))
-"   " Load vim-plug and its plugins?
-"   " if !s:has_plug && executable('curl')
-"   "   call nanplug#install#Install()
-"   "   let s:has_plug = 1
-"   " endif
-" endif
-
-" ============================================================================
-" Bundles
-" ============================================================================
-
-if filereadable(expand("~/.vimrc.bundles"))
-  source ~/.vimrc.bundles
+  if s:has_plug
+    command! PI PlugInstall
+    command! PU PlugUpgrade | PlugUpdate
+    let g:plug_window = 'tabnew'
+    call plug#begin(g:nan#plug_absdir)
+    if empty($VIMNOPLUGS) | call nanplug#plugins#LoadAll() | endif
+    call plug#end()
+  endif
 endif
+
+" ============================================================================
+" temporary
+" ============================================================================
+" set keyword+=-
+
+colorscheme two-firewatch
+set background=dark

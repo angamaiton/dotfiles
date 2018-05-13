@@ -11,7 +11,7 @@ NAN_SOURCE="${NAN_SOURCE} -> .zshrc {"
 . "${DOTFILES}/lib/interactive.sh"
 
 # dedupe these path arrays (they shadow PATH, FPATH, etc)
-# typeset -gU cdpath path fpath manpath
+typeset -gU cdpath path fpath manpath
 
 # ============================================================================
 # Options
@@ -43,7 +43,20 @@ fi
 # ============================================================================
 
 # must be after sourcing zplugin and before cdreplay
-autoload -Uz compinit
-compinit
+autoload -Uz compinit; compinit
+
+# ============================================================================
+# Plugins: fasd
+# ============================================================================
+
+__nan_has "fasd" && eval "$(fasd --init posix-alias zsh-hook)"
+
+if [[ -d "${HOME}/.asdf" ]]; then
+  __nan_source "${HOME}/.asdf/asdf.sh"
+else
+  __nan_echo "Installing ASDF..."
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.4.3
+  __nan_source "${HOME}/.asdf/asdf.sh"
+fi
 
 export NAN_SOURCE="${NAN_SOURCE} }"
