@@ -49,3 +49,5 @@ alias ll="ls -l"
 alias lt="ls -l -T"
 alias lg="ls -l -G"
 alias l="ls -alG"
+
+alias tmux='tmux -f "${DOTFILES}/tmux/tmux.conf"'

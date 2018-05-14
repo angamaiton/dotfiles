@@ -37,6 +37,87 @@ set cursorline
 
 set synmaxcol=512                     " don't syntax highlight long lines
 
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
+  syntax on
+endif
+
+if exists('+signcolumn') | set signcolumn=yes | endif
+
+" ------------------------------------
+" Tab line
+" ------------------------------------
+
+set showtabline=0                     " start OFF, toggle =2 to show tabline
+
+" ------------------------------------
+" Status line
+" ------------------------------------
+
+set laststatus=2                      " always show all statuslines
+
+" ------------------------------------
+" Command line
+" ------------------------------------
+
+" This is slow on some terminals and often gets hidden by msgs so leave it off
+set noshowcmd
+
+set noshowmode                        " don't show -- INSERT -- in cmdline
+
+" ----------------------------------------------------------------------------
+" Input
+" ----------------------------------------------------------------------------
+
+" Enable mouse
+set mouse=a
+
+" Typing key combos
+set notimeout
+set ttimeout
+
+" ----------------------------------------------------------------------------
+" Wild and file globbing stuff in command mode
+" ----------------------------------------------------------------------------
+
+set browsedir=buffer                  " browse files in same dir as open file
+set wildmenu                          " Enhanced command line completion.
+set wildmode=list:longest,full        " Complete files using a menu AND list
+let &wildignorecase = v:version >= 704
+
+" wildignore prevents things from showing up in cmd completion
+" It's for things you'd NEVER open in Vim, like caches and binary files
+" @see https://github.com/tpope/vim-fugitive/issues/121#issuecomment-38720847
+" @see https://github.com/kien/ctrlp.vim/issues/63
+" @see https://github.com/tpope/vim-vinegar/issues/61#issuecomment-167432416
+" @see http://tbaggery.com/2011/08/08/effortless-ctags-with-git.html#comment-1396330403
+"
+" So don't do this! There are cases where you'd edit them or their contents
+"set wildignore+=.git
+"set wildignore+=.hg,.svn
+"set wildignore+=tags
+"set wildignore+=*.manifest
+
+" Binary
+set wildignore+=*.aux,*.out,*.toc
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.jar,*.pyc,*.rbc,*.class
+set wildignore+=*.ai,*.bmp,*.gif,*.ico,*.jpg,*.jpeg,*.png,*.psd,*.webp
+set wildignore+=*.avi,*.m4a,*.mp3,*.oga,*.ogg,*.wav,*.webm
+set wildignore+=*.eot,*.otf,*.ttf,*.woff
+set wildignore+=*.doc,*.pdf
+set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
+" Cache
+set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*.gem
+set wildignore+=.sass-cache
+set wildignore+=npm-debug.log
+" Compiled
+set wildignore+=*.marko.js
+set wildignore+=*.min.*,*-min.*
+" Temp/System
+set wildignore+=*.*~,*~
+set wildignore+=*.swp,.lock,.DS_Store,._*,tags.lock
+
 " ============================================================================
 " Plugins: autoinstall vim-plug, define plugins, install plugins if needed
 " ============================================================================
@@ -67,6 +148,51 @@ endif
 " temporary
 " ============================================================================
 " set keyword+=-
+
+if executable('ag')
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Fuzzy Finder :Files as Ctrl+P
+  nnoremap <c-p> :Files<cr>
+
+  if !exists(":Ag")
+    command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+    nnoremap \ :Ag<SPACE>
+  endif
+endif
+
+" ----------------------------------------------------------------------------
+" Input auto-formatting (global defaults)
+" Probably need to update these in after/ftplugin too since ftplugins will
+" probably update it.
+" ----------------------------------------------------------------------------
+
+set formatoptions=
+set formatoptions+=c                  " Auto-wrap comments using textwidth
+set formatoptions+=r                  " Continue comments by default
+set formatoptions-=o                  " do not continue comment using o or O
+set formatoptions+=q                  " continue comments with gq
+set formatoptions-=a                  " auto-gq on type in comments?
+set formatoptions+=n                  " Recognize numbered lists
+set formatoptions+=2                  " Use indent from 2nd line of a paragraph
+set formatoptions-=l                  " break lines that are already long?
+set formatoptions+=1                  " Break before 1-letter words
+" Vim 7.4 only: no // comment when joining commented lines
+if v:version >= 704 | set formatoptions+=j | endif
+
+" ============================================================================
+" Autocommands
+" ============================================================================
+
+augroup nanwindow
+  autocmd!
+  autocmd VimResized * wincmd =
+augroup END
+
+" ============================================================================
+" Themes
+" ============================================================================
 
 colorscheme two-firewatch
 set background=dark

@@ -32,7 +32,7 @@ if __nan_has 'wget'; then
   autoload -Uz _zplugin
   (( ${+_comps} )) && _comps[zplugin]=_zplugin
   # Must be sourced above compinit
-  __nan_source "${ZDOTDIR}/zplugin.zsh"
+  __nan_source "${ZDOTDIR}/config/zplugin.zsh"
 }
 else
   __nan_warn "wget is required for zplugin."
@@ -58,5 +58,13 @@ else
   git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.4.3
   __nan_source "${HOME}/.asdf/asdf.sh"
 fi
+
+# ============================================================================
+# Functions
+# ============================================================================
+
+. "${ZDOTDIR}/config/functions.zsh"
+
+CDPATH=.:$HOME:$HOME/github:$HOME/github/angamaiton:$HOME/projects:$HOME/clients:$HOME/Downloads:$HOME/learning
 
 export NAN_SOURCE="${NAN_SOURCE} }"

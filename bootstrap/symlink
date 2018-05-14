@@ -19,7 +19,8 @@ __symlink() {
   __nan_status "Symlinking dotfiles..."
 
   # XDG-compatible
-  nan-symlink "git/dot.gitconfig" ".config/git/config"
+  # nan-symlink "git/dot.gitconfig" ".config/git/config"
+  nan-symlink "git/dot.gitconfig" ".gitconfig"
   nan-symlink "git/dot.gitignore" ".config/git/ignore"
 
   # (n)vim
