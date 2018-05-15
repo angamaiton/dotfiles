@@ -113,12 +113,12 @@ __nan_dotfiles__update_fzf() {
 # OS-specific commands
 # ------------------------------------------------------------------------------
 
-__dko_dotfiles__darwin__update() {
+__nan_dotfiles__darwin__update() {
   case "$1" in
-    brew) __dko_dotfiles__darwin__update_brew; return $? ;;
-    mac)  __dko_dotfiles__darwin__update_mac; return $? ;;
+    brew) __nan_dotfiles__darwin__update_brew; return $? ;;
+    mac)  __nan_dotfiles__darwin__update_mac; return $? ;;
   esac
-  __dko_dotfiles__command_not_found "$1"
+  __nan_dotfiles__command_not_found "$1"
   return 1
 }
 

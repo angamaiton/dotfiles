@@ -27,6 +27,16 @@ function! nanplug#plugins#LoadAll() abort
   " tyru/caw.vim, some others use this to determine inline embedded filetypes
   Plug 'Shougo/context_filetype.vim'
 
+  Plug 'kana/vim-operator-user'
+
+  Plug 'tomtom/tcomment_vim'
+  " gcc to toggle comment
+  " Plug 'tyru/caw.vim'
+    " <Leader>s(a/r/d) to modify surrounding the pending operator
+  Plug 'rhysd/vim-operator-surround', { 'on': [ '<Plug>(operator-surround' ] }
+  " <Leader>c to toggle CamelCase/snak_e the pending operator
+  Plug 'tyru/operator-camelize.vim', { 'on': [ '<Plug>(operator-camelize' ] }
+
   " ==========================================================================
   " File system, ctags
   " ==========================================================================
@@ -203,7 +213,6 @@ function! nanplug#plugins#LoadAll() abort
 
   " For those of us too lazy to write our own autochdir plugins
   Plug 'airblade/vim-rooter'
-
   Plug 'mhinz/vim-signify'
 
   " --------------------------------------------------------------------------
