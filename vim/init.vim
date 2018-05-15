@@ -17,6 +17,35 @@ set inccommand=
 let g:terminal_scrollback_buffer_size = 100000
 
 " ============================================================================
+" fzf fix
+" https://github.com/junegunn/fzf/issues/809#issuecomment-273226434
+" ============================================================================
+
+let $FZF_DEFAULT_OPTS .= ' --no-height'
+
+" ============================================================================
+" Neovim-only mappings
+" ============================================================================
+
+" Special key to get back to vim
+tnoremap <special> <C-b>      <C-\><C-n>
+
+" Move between windows using Alt-
+" Ctrl- works only outside of terminal buffers
+tnoremap <special> <A-Up>     <C-\><C-n><C-w>k
+tnoremap <special> <A-Down>   <C-\><C-n><C-w>j
+tnoremap <special> <A-Left>   <C-\><C-n><C-w>h
+tnoremap <special> <A-Right>  <C-\><C-n><C-w>l
+nnoremap <special> <A-Up>     <C-w>k
+nnoremap <special> <A-Down>   <C-w>j
+nnoremap <special> <A-Left>   <C-w>h
+nnoremap <special> <A-Right>  <C-w>l
+nnoremap <special> <A-k>      <C-w>k
+nnoremap <special> <A-j>      <C-w>j
+nnoremap <special> <A-h>      <C-w>h
+nnoremap <special> <A-l>      <C-w>l
+
+" ============================================================================
 " Python setup
 " Skips if python is not installed in a pyenv virtualenv
 " ============================================================================

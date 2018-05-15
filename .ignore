@@ -1,0 +1,10 @@
+*.crt
+base16/
+certs/
+fonts/
+logs/
+tmux/plugins/
+vim/.tmp/
+vim/autoload/plug.vim
+vim/plug/
+vim/vendor/

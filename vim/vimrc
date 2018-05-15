@@ -6,6 +6,8 @@ let g:mapleader = " "
 
 let g:nan_use_completion = has('nvim') && has('python3')
 
+let g:has_async = v:version >= 800 || has('nvim')
+
 " ============================================================================
 " 2. Personal defaults
 " May be overridden by **/plugins, after/plugins and **/ftplugins
@@ -25,8 +27,8 @@ set title                              " wintitle = filename - vim
 set novisualbell                       " no flashes
 set noerrorbells                       " no beeps
 
-set number
 set numberwidth=5                      " context around current cursor position
+set number relativenumber
 set scrolloff=8
 set sidescrolloff=16
 
@@ -118,6 +120,26 @@ set wildignore+=*.min.*,*-min.*
 set wildignore+=*.*~,*~
 set wildignore+=*.swp,.lock,.DS_Store,._*,tags.lock
 
+" ----------------------------------------------------------------------------
+" File saving
+" ----------------------------------------------------------------------------
+
+" reload files if they were edited elsewhere?
+"set autoread
+set autowrite     " Automatically :write before running commands
+
+set fileformats=unix,mac,dos
+" Not modifiable if no window (e.g. resourcing vimrc)
+if !&modifiable | set fileformat=unix | endif
+
+" ----------------------------------------------------------------------------
+" Writing swaps
+" ----------------------------------------------------------------------------
+
+set noswapfile
+set nobackup
+set nowritebackup
+
 " ============================================================================
 " Plugins: autoinstall vim-plug, define plugins, install plugins if needed
 " ============================================================================
@@ -125,7 +147,6 @@ set wildignore+=*.swp,.lock,.DS_Store,._*,tags.lock
 let g:nan#vim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 let g:nan#plug_dir = '/vendor/'
 let g:nan#plug_absdir = g:nan#vim_dir . g:nan#plug_dir
-
 
 if executable('git')
   let s:has_plug = !empty(glob(expand(g:nan#vim_dir . '/autoload/plug.vim')))
@@ -152,7 +173,7 @@ endif
 
 set formatoptions=
 set formatoptions+=c                  " Auto-wrap comments using textwidth
-set formatoptions+=r                  " Continue comments by default
+" set formatoptions+=r                  " Continue comments by default
 set formatoptions-=o                  " do not continue comment using o or O
 set formatoptions+=q                  " continue comments with gq
 set formatoptions-=a                  " auto-gq on type in comments?
@@ -162,6 +183,102 @@ set formatoptions-=l                  " break lines that are already long?
 set formatoptions+=1                  " Break before 1-letter words
 " Vim 7.4 only: no // comment when joining commented lines
 if v:version >= 704 | set formatoptions+=j | endif
+
+set nrformats-=octal                  " never use octal when <C-x> or <C-a>
+
+" Does this invalidate what's above?
+filetype plugin indent on
+
+" ----------------------------------------------------------------------------
+" Whitespace
+" ----------------------------------------------------------------------------
+
+set nowrap
+set nojoinspaces                      " J command doesn't add extra space
+
+" Display extra whitespace
+set list listchars=tab:»·,trail:·,nbsp:·
+
+" ----------------------------------------------------------------------------
+" Indenting - overridden by indent plugins
+" ----------------------------------------------------------------------------
+
+set autoindent                        " indent when creating newline
+
+" For autoindent, use same spaces/tabs mix as previous line, even if
+" tabs/spaces are mixed. Helps for docblock, where the block comments have a
+" space after the indent to align asterisks
+"
+" The test case what happens when using o/O and >> and << on these:
+"
+"     /**
+"      *
+"
+" Refer also to formatoptions+=o (copy comment indent to newline)
+set nocopyindent
+
+" Try not to change the indent structure on "<<" and ">>" commands. I.e. keep
+" block comments aligned with space if there is a space there.
+set nopreserveindent
+
+" Smart detect when in braces and parens. Has annoying side effect that it
+" won't indent lines beginning with '#'. Relying on syntax indentexpr instead.
+" 'smartindent' in general is a piece of garbage, never turn it on.
+set nosmartindent
+
+" Global setting. I don't edit C-style code all the time so don't default to
+" C-style indenting.
+set nocindent
+
+" ----------------------------------------------------------------------------
+" Tabbing - overridden by editorconfig, after/ftplugin
+" ----------------------------------------------------------------------------
+
+" use multiple of shiftwidth when shifting indent levels.
+" this is OFF so block comments don't get fudged when using ">>" and "<<"
+set noshiftround
+
+" When on, a <Tab> in front of a line inserts blanks according to
+" 'shiftwidth'. 'tabstop' or 'softtabstop' is used in other places.
+set smarttab
+
+set backspace=indent,eol,start        " bs anything
+
+" ----------------------------------------------------------------------------
+" Match and search
+" ----------------------------------------------------------------------------
+
+set matchtime=1                       " tenths of a sec
+set showmatch                         " briefly jump to matching paren?
+set hlsearch
+set incsearch
+set wrapscan                          " Searches wrap around end of the file.
+set ignorecase
+" Follow smartcase and ignorecase when doing tag search
+if exists('+tagcase') && has('patch-7.4.2230') | set tagcase=followscs | endif
+set smartcase
+
+" ----------------------------------------
+" Filetype: python
+" ----------------------------------------
+
+" $VIMRUNTIME/syntax/python.vim
+let g:python_highlight_all = 1
+
+" ----------------------------------------
+" Filetype: sh
+" ----------------------------------------
+
+" $VIMRUNTIME/syntax/sh.vim - always assume bash
+let g:is_bash = 1
+
+" ----------------------------------------
+" Filetype: vim
+" ----------------------------------------
+
+" $VIMRUNTIME/syntax/vim.vim
+" disable mzscheme, tcl highlighting
+let g:vimsyn_embed = 'lpPr'
 
 " ============================================================================
 " Autocommands
@@ -178,8 +295,38 @@ augroup nanwindow
   autocmd VimResized * wincmd =
 augroup END
 
+augroup vimrcEx
+  autocmd!
+
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it for commit messages, when the position is invalid, or when
+  " inside an event handler (happens when dropping a file on gvim).
+  autocmd BufReadPost *
+    \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+
+  " ALE linting events
+  if g:has_async
+    set updatetime=1000
+    let g:ale_lint_on_text_changed = 0
+    autocmd CursorHold * call ale#Lint()
+    autocmd CursorHoldI * call ale#Lint()
+    autocmd InsertEnter * call ale#Lint()
+    autocmd InsertLeave * call ale#Lint()
+  else
+    echoerr "These dotfiles require Neovim or Vim 8."
+  endif
+augroup END
+
+augroup nannumber
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
+
 " Leaving this here until I decide on a saner/safer way to do this
-" cd %:h
+let g:rooter_change_directory_for_non_project_files = 'current'
 
 " ============================================================================
 " Themes
@@ -187,3 +334,27 @@ augroup END
 
 colorscheme two-firewatch
 set background=dark
+
+" ============================================================================
+" Temporary
+" ============================================================================
+
+" Set spellfile to location that is guaranteed to exist, can be symlinked to
+" Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.
+set spellfile=$HOME/.vim-spell-en.utf-8.add
+
+" Autocomplete with dictionary words when spell check is on
+set complete+=kspell
+
+" Always use vertical diffs
+set diffopt+=vertical
+
+set ruler         " show the cursor position all the time
+
+" When the type of shell script is /bin/sh, assume a POSIX-compatible
+" shell for syntax highlighting purposes.
+let g:is_posix = 1
+
+" Open new split panes to right and bottom, which feels more natural
+set splitbelow
+set splitright

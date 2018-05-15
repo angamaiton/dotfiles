@@ -45,9 +45,15 @@ fi
 # must be after sourcing zplugin and before cdreplay
 autoload -Uz compinit; compinit
 
-# ============================================================================
+# enable menu selection
+zmodload -i zsh/complist
+
+# run compdefs provided by plugins
+__nan_has 'zplugin' && zplugin cdreplay -q
+
+# ----------------------------------------------------------------------------
 # Plugins: fasd
-# ============================================================================
+# ----------------------------------------------------------------------------
 
 __nan_has "fasd" && eval "$(fasd --init posix-alias zsh-hook)"
 
@@ -59,6 +65,22 @@ else
   __nan_source "${HOME}/.asdf/asdf.sh"
 fi
 
-CDPATH=.:$HOME:$HOME/github:$HOME/github/angamaiton:$HOME/projects:$HOME/clients:$HOME/Downloads:$HOME/learning
+# ----------------------------------------------------------------------------
+# Plugins: fzf (installed via package manager)
+# ----------------------------------------------------------------------------
+
+if [[ -d /usr/local/opt/fzf ]]; then
+  [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]] &&
+    export PATH="$PATH:/usr/local/opt/fzf/bin"
+  __nan_source "/usr/local/opt/fzf/shell/completion.zsh" 2>/dev/null
+  __nan_source "/usr/local/opt/fzf/shell/key-bindings.zsh"
+  NAN_SOURCE="${NAN_SOURCE} -> fzf"
+fi
+
+# ============================================================================
+# Keybindings
+# ============================================================================
+
+. "${ZDOTDIR}/config/keybindings.zsh"
 
 export NAN_SOURCE="${NAN_SOURCE} }"

@@ -2,7 +2,7 @@
 
 cd -- "$(dirname "$0")/.." || exit 1
 __dotfiles_dir="$(pwd)"
-. "${__dotfiles_dir}/lib/pretty.sh"
+. "${__dotfiles_dir}/lib/pretty.bash"
 
 __nan_symlinking() {
   printf '\033[0;32m==> OK:   \033[0;35m%s\033[0;m -> %s\033[0;m\n' "$1" "$2"
@@ -18,7 +18,7 @@ __nan_symlink() {
 
   nan-same "$source_path" "$full_target_path"
   local result=$?
-  
+
   if (( result == 0 )); then
     return
   elif (( result == 10 )); then
@@ -34,6 +34,8 @@ __nan_symlink() {
 
   __nan_symlinking "${full_target_path}" "${source_path}"
 
+  target_dir="$(dirname "$full_target_path")"
+  nan-maybemkdir "$target_dir" || return 1
   ln -fns "$source_path" "$full_target_path"
 }
 

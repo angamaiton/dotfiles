@@ -3,36 +3,41 @@
 cd -- "$(dirname "$0")/.." || exit 1
 __dotfiles_dir="$(pwd)"
 . "${__dotfiles_dir}/lib/helpers.sh"
-. "${__dotfiles_dir}/lib/pretty.sh"
+. "${__dotfiles_dir}/lib/pretty.bash"
 
+# $1 source file path
+# $2 dest file path
+# return success if fulltargetpath is resolvedpath
 __nan_same() {
-  local source_path="$1"
-  local target_path="$2"
+  local sourcepath="$1"
+  local targetpath="$2"
 
-  if [[ -f "$target_path" ]] || [[ -d "$target_path" ]]; then
-    local resolved_path
+  if [[ -f "$targetpath" ]] || [[ -d "$targetpath" ]]; then
+    local resolvedpath
+
     if __nan_has "realpath"; then
-      resolved_path=$(realpath "$target_path")
+      resolvedpath=$(realpath "$targetpath")
     elif __nan_has "readlink" && [[ "$(uname)" == "Darwin" ]]; then
-      resolved_path=$(readlink "$target_path")
+      resolvedpath=$(readlink "$targetpath")
     else
-      __nan_err "$target_path exists, but may not be properly linked."
+      __nan_err   "$targetpath exists but unable to determine if it is properly linked."
       # http://www.tldp.org/LDP/abs/html/exitcodes.html
       return 126
     fi
 
-    [[ "$resolved_path" == "$target_path" ]] && {
-      __nan_status "${target_path} already linked to ${resolved_path}."
+    [[ "$resolvedpath" == "$sourcepath" ]] && {
+      __nan_status "${targetpath} already linked to ${resolvedpath}"
       return 0
     }
 
-    __nan_warn "${target_path} not linked to ${resolved_path}."
+    __nan_warn "${targetpath} not linked to ${resolvedpath}"
     return 10
   fi
 
-  # If it doesn't exist
-  __nan_status "${target_path} not found."
+  # does not exist
+  __nan_status "${targetpath} not found"
   return 20
 }
 
 __nan_same "$@"
+

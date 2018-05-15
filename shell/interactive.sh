@@ -3,7 +3,7 @@
 NAN_SOURCE="${NAN_SOURCE} -> shell/interactive.sh {"
 
 # I don't think this first part is supposed to be here
-. "${DOTFILES}/lib/pretty.sh"
+. "${DOTFILES}/lib/pretty.bash"
 . "${DOTFILES}/lib/helpers.sh"
 . "${DOTFILES}/shell/functions.sh" # shell functions
 . "${DOTFILES}/shell/aliases.sh"

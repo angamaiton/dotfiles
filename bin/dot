@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+
+[[ -z "${DOTFILES}" ]] && echo "Symlink first!" && exit 1
+. "${DOTFILES}/lib/helpers.sh"
+. "${DOTFILES}/lib/pretty.bash"
+
+# ------------------------------------------------------------------------------
+# Meta
+# ------------------------------------------------------------------------------
+
+__nan_dotfiles__command_not_found() {
+  __nan_err "Command not found '${1:-''}'"
+  echo
+  __nan_dotfiles__usage
+  exit 1
+}
+
+__nan_dotfiles__usage() {
+  __nan_usage  "dot <command>"
+  echo '
+  Utility Commands
+    dotfiles    -- update dotfiles (git pull)
+    secret      -- update ~/.secret (git pull)
+    daily       -- secret, Packages / Developer Tools, fzf, asdf
+
+  Shell Tools
+    fzf         -- update fzf with flags to not update rc scripts
+    node        -- install latest node via asdf
+    nvm         -- update nvm installation
+    asdf        -- update asdf installation
+
+  Packages / Developer Tools
+    gem         -- update rubygems and global gems for current ruby
+    go          -- golang
+    pip         -- update all versions of pip (OS-dependent)
+    neodf       -- update neovim for asdf
+
+  System: macOS
+    brew        -- homebrew packages
+    mac         -- repair permissions and check software updates
+'
+}
+
+__nan_dotfiles__cd() {
+  cd -- "$DOTFILES" || {
+    __nan_err "No \$DOTFILES directory"
+    return 1
+  }
+}
+
+__nan_dotfiles__update() {
+  __nan_status "Updating dotfiles..."
+
+  local lockfile="${LDOTDIR}/dotfiles.lock"
+  # shellcheck disable=SC2064
+  trap "rm -f \"$lockfile\"" EXIT
+  touch "$lockfile"
+
+  (
+    __nan_dotfiles__cd || exit 1
+    git pull --rebase || exit 1
+    git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
+  ) || {
+    __nan_err "Error updating dotfiles."
+    return 1
+  }
+
+  __nan_ok "Successfully updated dotfiles."
+}
+
+__nan_dotfiles__update_daily() {
+  __nan_dotfiles__update_secret
+
+  if [[ -x "/usr/local/opt/fzf/install" ]] || [[ -d "${HOME}/.fzf" ]]
+  then __nan_dotfiles__update_fzf
+  else __nan_warn "fzf is not installed."
+  fi
+}
+
+# ------------------------------------------------------------------------------
+# OS: macOS/OS X
+# ------------------------------------------------------------------------------
