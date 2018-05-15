@@ -61,7 +61,6 @@ export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 # Miscellaneous
 # ============================================================================
 
-
 # less
 # -F quit if one screen (default)
 # -N line numbers
@@ -75,6 +74,8 @@ export LESSHISTFILE=-
 # man
 export MANWIDTH=88
 export MANPAGER="$PAGER"
+
+export ASDF_DIR="${HOME}/.asdf"
 
 # ----------------------------------------------------------------------------
 # editor

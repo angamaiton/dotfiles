@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 
-[[ -z "${DOTFILES}" ]] && echo "Symlink first!" && exit 1
+[[ -z "${DOTFILES}" ]] && echo "Symlink first" && exit 1
 . "${DOTFILES}/lib/helpers.sh"
 . "${DOTFILES}/lib/pretty.bash"
+
+# ==============================================================================
+# Command functions
+# ==============================================================================
 
 # ------------------------------------------------------------------------------
 # Meta
@@ -15,37 +19,25 @@ __nan_dotfiles__command_not_found() {
   exit 1
 }
 
+__nan_dotfiles__cd() {
+  cd -- "$DOTFILES" || {
+    __nan_err "No \$DOTFILES directory"
+    return 1
+  }
+}
+
 __nan_dotfiles__usage() {
   __nan_usage  "dot <command>"
   echo '
   Utility Commands
     dotfiles    -- update dotfiles (git pull)
     secret      -- update ~/.secret (git pull)
-    daily       -- secret, Packages / Developer Tools, fzf, asdf
+    daily       -- secret, Packages / Developer Tools, fzf, nvm, pyenv
 
-  Shell Tools
-    fzf         -- update fzf with flags to not update rc scripts
-    node        -- install latest node via asdf
-    nvm         -- update nvm installation
-    asdf        -- update asdf installation
-
-  Packages / Developer Tools
-    gem         -- update rubygems and global gems for current ruby
-    go          -- golang
-    pip         -- update all versions of pip (OS-dependent)
-    neodf       -- update neovim for asdf
-
-  System: macOS
+  System: macOS/OS X
     brew        -- homebrew packages
     mac         -- repair permissions and check software updates
 '
-}
-
-__nan_dotfiles__cd() {
-  cd -- "$DOTFILES" || {
-    __nan_err "No \$DOTFILES directory"
-    return 1
-  }
 }
 
 __nan_dotfiles__update() {
@@ -61,11 +53,21 @@ __nan_dotfiles__update() {
     git pull --rebase || exit 1
     git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
   ) || {
-    __nan_err "Error updating dotfiles."
+    __nan_err "Error updating dotfiles!"
     return 1
   }
 
-  __nan_ok "Successfully updated dotfiles."
+  __nan_ok "Successfully updated dotfiles!"
+}
+
+__nan_dotfiles__update_secret() {
+  __nan_status "Updating ~/.secret/"
+  (
+    cd -- "${HOME}/.secret" \
+      || { __nan_err "No ~/.secret directory" && exit 1; }
+    git pull --rebase --recurse-submodules || exit 1
+    git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
+  ) || __nan_err "Failed to update ~/.secret/"
 }
 
 __nan_dotfiles__update_daily() {
@@ -73,10 +75,30 @@ __nan_dotfiles__update_daily() {
 
   if [[ -x "/usr/local/opt/fzf/install" ]] || [[ -d "${HOME}/.fzf" ]]
   then __nan_dotfiles__update_fzf
-  else __nan_warn "fzf is not installed."
+  else __nan_warn "fzf is not installed"
   fi
 }
 
-# ------------------------------------------------------------------------------
-# OS: macOS/OS X
-# ------------------------------------------------------------------------------
+# ==============================================================================
+# Main
+# ==============================================================================
+
+# $1 command
+# $1 command
+__nan_dotfiles() {
+  (( $# == 0 )) && __nan_dotfiles__usage && return 1
+
+  case $1 in
+    dotfiles) __nan_dotfiles__update                  ;;
+    secret)   __nan_dotfiles__update_secret           ;;
+    daily)    __nan_dotfiles__update_daily            ;;
+
+    *)
+      case "$OSTYPE" in
+        # linux*)   __nan_dotfiles__linux__update "$@"   ;;
+        darwin*)  __nan_dotfiles__darwin__update "$@"  ;;
+      esac
+  esac
+}
+
+__nan_dotfiles "$@"

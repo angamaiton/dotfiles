@@ -1,4 +1,4 @@
 " ftplugin/gitconfig.vim
 
 setlocal noexpandtab
-setlocal shiftwidth=8
+setlocal shiftwidth=2
