@@ -1,7 +1,20 @@
-source ~/.vim/vimrc
-
 " Potentially conditional?
-set termguicolors
+" set termguicolors
+
+let g:nan_nvim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
+
+" ============================================================================
+" Settings
+" ============================================================================
+
+if $COLORTERM ==# 'truecolor'
+  set termguicolors
+endif
+
+set inccommand=
+
+" Breaking the rule here, but this looks useful
+let g:terminal_scrollback_buffer_size = 100000
 
 " ============================================================================
 " Python setup
@@ -46,3 +59,5 @@ if !empty(s:pyenv_py3)
 else
   let g:loaded_python3_provider = 1
 endif
+
+execute 'source ' . g:nan_nvim_dir . '/vimrc'

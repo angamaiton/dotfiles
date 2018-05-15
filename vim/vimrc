@@ -144,24 +144,6 @@ if executable('git')
   endif
 endif
 
-" ============================================================================
-" temporary
-" ============================================================================
-" set keyword+=-
-
-if executable('ag')
-  " Use Ag over Grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Fuzzy Finder :Files as Ctrl+P
-  nnoremap <c-p> :Files<cr>
-
-  if !exists(":Ag")
-    command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-    nnoremap \ :Ag<SPACE>
-  endif
-endif
-
 " ----------------------------------------------------------------------------
 " Input auto-formatting (global defaults)
 " Probably need to update these in after/ftplugin too since ftplugins will
@@ -185,10 +167,19 @@ if v:version >= 704 | set formatoptions+=j | endif
 " Autocommands
 " ============================================================================
 
+augroup nanfile
+  autocmd BufReadPre *
+        \ if getfsize(expand("%")) > 10000000 | syntax off | endif
+  autocmd BufReadPre *.min.* syntax off
+augroup END
+
 augroup nanwindow
   autocmd!
   autocmd VimResized * wincmd =
 augroup END
+
+" Leaving this here until I decide on a saner/safer way to do this
+cd %:h
 
 " ============================================================================
 " Themes
