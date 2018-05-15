@@ -1,15 +1,15 @@
-NAN_SOURCE="${NAN_SOURCE} -> lib/init.sh {"
+NAN_SOURCE="${NAN_SOURCE} -> shell/init.sh {"
 export NAN_INIT=1
 
 # ============================================================================
 
-. "${HOME}/.dotfiles/lib/vars.sh"
+. "${HOME}/.dotfiles/shell/vars.sh"
 
 # Rebuild path starting from system path
 # Regarding tmux:
 # Since my tmux shells are not login shells the path needs to be rebuilt.
-# lib/vars.sh on the other hand just get inherited.
-. "${DOTFILES}/lib/path.sh"
+# shell/vars.sh on the other hand just get inherited.
+. "${DOTFILES}/shell/path.sh"
 
 # ============================================================================
 

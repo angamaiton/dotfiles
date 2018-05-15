@@ -1,4 +1,4 @@
-export NAN_SOURCE="${NAN_SOURCE} -> lib/vars.sh"
+export NAN_SOURCE="${NAN_SOURCE} -> shell/vars.sh"
 
 # ============================================================================
 # Locale

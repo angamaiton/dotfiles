@@ -1,4 +1,4 @@
-export NAN_SOURCE="${NAN_SOURCE} -> lib/aliases.sh"
+export NAN_SOURCE="${NAN_SOURCE} -> shell/aliases.sh"
 
 # ----------------------------------------------------------------------------
 # safeguarding

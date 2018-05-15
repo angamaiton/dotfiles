@@ -5,7 +5,7 @@
 # NOTE: macOS always starts a login shell
 
 NAN_SOURCE="${NAN_SOURCE} -> dot.profile {"
-[ -z "$NAN_INIT" ] && . "${HOME}/.dotfiles/lib/init.sh"
+[ -z "$NAN_INIT" ] && . "${HOME}/.dotfiles/shell/init.sh"
 
 # ==============================================================================
 # env management
@@ -20,6 +20,6 @@ NAN_SOURCE="${NAN_SOURCE} -> dot.profile {"
 PATH="${DOTFILES}/bin:$PATH"
 export PATH
 
-[ -n "$NAN_SH" ] && . "${DOTFILES}/lib/interactive.sh"
+[ -n "$NAN_SH" ] && . "${DOTFILES}/shell/interactive.sh"
 
 export NAN_SOURCE="${NAN_SOURCE} }"

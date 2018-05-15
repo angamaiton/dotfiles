@@ -7,8 +7,8 @@
 [[ -n "$TMUX" ]] && NAN_SOURCE="${NAN_SOURCE} -> ____TMUX____ {"
 NAN_SOURCE="${NAN_SOURCE} -> .zshrc {"
 
-. "${HOME}/.dotfiles/lib/dot.profile"
-. "${DOTFILES}/lib/interactive.sh"
+. "${HOME}/.dotfiles/shell/dot.profile"
+. "${DOTFILES}/shell/interactive.sh"
 
 # dedupe these path arrays (they shadow PATH, FPATH, etc)
 typeset -gU cdpath path fpath manpath
