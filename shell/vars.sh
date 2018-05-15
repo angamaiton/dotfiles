@@ -61,7 +61,20 @@ export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 # Miscellaneous
 # ============================================================================
 
-export ZPLUG_HOME="${XDG_CONFIG_HOME}/zplug"
+
+# less
+# -F quit if one screen (default)
+# -N line numbers
+# -R raw control chars (default)
+# -X don't clear screen on quit
+# -e LESS option to quit at EOF
+export LESS="-eFRX"
+# disable less history
+export LESSHISTFILE=-
+
+# man
+export MANWIDTH=88
+export MANPAGER="$PAGER"
 
 # ----------------------------------------------------------------------------
 # editor
@@ -69,3 +82,10 @@ export ZPLUG_HOME="${XDG_CONFIG_HOME}/zplug"
 
 export EDITOR="nvim"
 export VISUAL="nvim"
+
+# ----------------------------------------------------------------------------
+# pager
+# ----------------------------------------------------------------------------
+
+export PAGER="less"
+export GIT_PAGER="$PAGER"

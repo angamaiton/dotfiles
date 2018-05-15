@@ -7,35 +7,35 @@ __dotfiles_dir="$(pwd)"
 
 # $1 source file path
 # $2 dest file path
-# return success if fulltargetpath is resolvedpath
+# return success if fulltarget_path is resolved_path
 __nan_same() {
-  local sourcepath="$1"
-  local targetpath="$2"
+  local source_path="$1"
+  local target_path="$2"
 
-  if [[ -f "$targetpath" ]] || [[ -d "$targetpath" ]]; then
-    local resolvedpath
+  if [[ -f "$target_path" ]] || [[ -d "$target_path" ]]; then
+    local resolved_path
 
     if __nan_has "realpath"; then
-      resolvedpath=$(realpath "$targetpath")
+      resolved_path=$(realpath "$target_path")
     elif __nan_has "readlink" && [[ "$(uname)" == "Darwin" ]]; then
-      resolvedpath=$(readlink "$targetpath")
+      resolved_path=$(readlink "$target_path")
     else
-      __nan_err   "$targetpath exists but unable to determine if it is properly linked."
+      __nan_err   "$target_path exists but unable to determine if it is properly linked."
       # http://www.tldp.org/LDP/abs/html/exitcodes.html
       return 126
     fi
 
-    [[ "$resolvedpath" == "$sourcepath" ]] && {
-      __nan_status "${targetpath} already linked to ${resolvedpath}"
+    [[ "$resolved_path" == "$source_path" ]] && {
+      __nan_status "${target_path} already linked to ${resolved_path}"
       return 0
     }
 
-    __nan_warn "${targetpath} not linked to ${resolvedpath}"
+    __nan_warn "${target_path} not linked to ${resolved_path}"
     return 10
   fi
 
   # does not exist
-  __nan_status "${targetpath} not found"
+  __nan_status "${target_path} not found"
   return 20
 }
 
