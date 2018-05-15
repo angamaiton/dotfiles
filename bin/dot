@@ -79,6 +79,128 @@ __nan_dotfiles__update_daily() {
   fi
 }
 
+# ------------------------------------------------------------------------------
+# Externals
+# ------------------------------------------------------------------------------
+
+__nan_dotfiles__update_fzf() {
+  local installer
+
+  if [[ -x "/usr/local/opt/fzf/install" ]]; then
+    __nan_status "fzf was installed via brew, re-running installer"
+    installer="/usr/local/opt/fzf/install"
+  elif [[ -d "${HOME}/.fzf" ]]; then
+    __nan_status "fzf was installed in ~/.fzf"
+    installer="${HOME}/.fzf/install"
+    ( cd -- "${HOME}/.fzf" || { __nan_err "Could not cd to ~/.fzf" && exit 1; }
+      __nan_status "Updating fzf"
+      git pull || { __nan_err "Could not update ~/.fzf" && exit 1; }
+      git log --no-merges --abbrev-commit --oneline ORIG_HEAD..
+    ) || return 1
+  else
+    __nan_err "fzf is not installed"
+    return 1
+  fi
+
+  # Install/update shell extensions
+  if [[ -n "$installer" ]]; then
+    __nan_status "Updating fzf shell extensions..."
+    "$installer" --bin || return 1
+  fi
+}
+
+# ------------------------------------------------------------------------------
+# OS-specific commands
+# ------------------------------------------------------------------------------
+
+__dko_dotfiles__darwin__update() {
+  case "$1" in
+    brew) __dko_dotfiles__darwin__update_brew; return $? ;;
+    mac)  __dko_dotfiles__darwin__update_mac; return $? ;;
+  esac
+  __dko_dotfiles__command_not_found "$1"
+  return 1
+}
+
+# ------------------------------------------------------------------------------
+# OS: macOS/OS X
+# ------------------------------------------------------------------------------
+
+__nan_dotfiles__darwin__update_mac() {
+  __nan_status "macOS system update"
+  sudo softwareupdate --install --all
+
+  __nan_status "xcode and cli update"
+  sudo xcode-select --install
+
+  __nan_has "mas" && mas upgrade
+}
+
+__nan_dotfiles__darwin__update_brew_done() {
+  __nan_status "Cleaning up old versions and pruning dead symlinks."
+  brew cleanup
+  brew cask cleanup
+  brew prune
+}
+
+# pass any arg to silence
+__nan_dotfiles__darwin__require_latest_xcode() {
+  local latest_xcode="9.3"
+  xcodebuild -version | grep -q "$latest_xcode" && return 0
+  (( $# == 0 )) \
+    && __nan_err "Using an outdated Xcode, please install/switch to latest version."
+  return 1
+}
+
+# pass any arg to silence
+__nan_dotfiles__darwin__require_brew() {
+  __nan_has "brew" && return 0
+  (( $# == 0 )) && __nan_warn "Homebrew is not installed."
+  return 1
+}
+
+__nan_dotfiles__darwin__update_brew() {
+  __nan_dotfiles__darwin__require_latest_xcode || return 1
+  __nan_dotfiles__darwin__require_brew || return 1
+
+  __nan_status "Updating Homebrew..."
+  (
+    # CLEANROOM
+    # enter dotfiles dir to do this in case user has any gem flags or local
+    # vendor bundle that will cause use of local gems
+    __nan_dotfiles__cd || exit 1
+    # __nan_dotfiles__pyenv_system
+    # Brew some makefiles like macvim use tput for output so need to reset
+    # from xterm-256color-italic I use in iterm
+    TERM="xterm-256color"
+
+    # we use & wait on brew since they sometimes spawn
+    brew update & wait
+
+    # check if needed
+    readonly outdated="$(brew outdated --quiet)"
+    [[ -z "$outdated" ]] && exit
+    wait
+
+    # Detect if brew's python3 (not pyenv) was outdated
+    grep -q "python3" <<<"$outdated" && {
+      __nan_status "Python3 was outdated, upgrading python3"
+      brew upgrade python3 & wait
+    }
+
+    # Upgrade remaining
+    __nan_status "Upgrading packages"
+    brew upgrade & wait
+
+    # link curl
+    if grep -q curl <<<"$outdated"; then
+      brew link --force curl
+    fi
+
+  ) && __nan_dotfiles__darwin__update_brew_done
+}
+
+
 # ==============================================================================
 # Main
 # ==============================================================================
