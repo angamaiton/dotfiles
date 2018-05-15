@@ -59,12 +59,6 @@ else
   __nan_source "${HOME}/.asdf/asdf.sh"
 fi
 
-# ============================================================================
-# Functions
-# ============================================================================
-
-. "${ZDOTDIR}/config/functions.zsh"
-
 CDPATH=.:$HOME:$HOME/github:$HOME/github/angamaiton:$HOME/projects:$HOME/clients:$HOME/Downloads:$HOME/learning
 
 export NAN_SOURCE="${NAN_SOURCE} }"

@@ -82,6 +82,16 @@ brew install tmux
 brew install zsh
 
 # ----------------------------------------------------------------------------
+# code analysis
+# ----------------------------------------------------------------------------
+
+brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+brew install cloc
+
+# used by fzf grepper preview
+brew install highlight
+
+# ----------------------------------------------------------------------------
 # git
 # ----------------------------------------------------------------------------
 

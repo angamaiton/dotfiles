@@ -25,6 +25,22 @@ alias e="$EDITOR"
 alias c="code"
 
 # ----------------------------------------------------------------------------
+# git
+# ----------------------------------------------------------------------------
+
+if command -v hub >/dev/null; then alias g='hub'; else alias g='git'; fi
+alias g-='g checkout -'
+alias gb='g branch --verbose'
+alias gi='g ink'
+alias gg='g grep --line-number --break --heading'
+alias gl='g l --max-count 25'
+alias gm='g checkout master'
+alias gp='g push'
+alias gpo='g push origin'
+alias gs='g status'
+alias gt='g take'
+
+# ----------------------------------------------------------------------------
 # languages
 # ----------------------------------------------------------------------------
 

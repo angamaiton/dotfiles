@@ -179,7 +179,7 @@ augroup nanwindow
 augroup END
 
 " Leaving this here until I decide on a saner/safer way to do this
-cd %:h
+" cd %:h
 
 " ============================================================================
 " Themes
