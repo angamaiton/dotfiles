@@ -67,3 +67,6 @@ alias lg="ls -l -G"
 alias l="ls -alG"
 
 alias tmux='tmux -f "${DOTFILES}/tmux/tmux.conf"'
+
+alias edot="cd ${DOTFILES} && ${EDITOR} ."
+alias realias="source ${DOTFILES}/shell/aliases.sh"

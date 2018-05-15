@@ -249,7 +249,7 @@ nnoremap <C-P> :Files<CR>
 " ----------------------------------------------------------------------------
 " Miscellaneous Thoughtbot bindings
 " ----------------------------------------------------------------------------
-"
+
 " Get off my lawn
 nnoremap <Left> :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
@@ -261,6 +261,20 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
+
+" Comment/un-comment like Sublime
+nnoremap <C-\> :TComment<CR>
+vnoremap <C-\> :TComment<CR>
+
+" ----------------------------------------------------------------------------
+" Miscellaneous personal settings (to sort, EXPERIMENTAL)
+" ----------------------------------------------------------------------------
+
+nnoremap <C-s> :w<CR>
+nnoremap <C-q> :qa<CR>
+
+inoremap <C-s> <ESC>:w<CR>
+inoremap <C-q> <ESC>:qa<CR>
 
 let &cpoptions = s:cpo_save
 unlet s:cpo_save
