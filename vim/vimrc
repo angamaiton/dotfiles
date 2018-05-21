@@ -290,6 +290,11 @@ augroup nanfile
   autocmd BufReadPre *.min.* syntax off
 augroup END
 
+" augroup nanlines
+"   autocmd!
+"   autocmd VimEnter * nested call nanline#Init()
+" augroup END
+
 augroup nanwindow
   autocmd!
   autocmd VimResized * wincmd =
@@ -358,4 +363,3 @@ let g:is_posix = 1
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
 set splitright
-
