@@ -51,7 +51,7 @@ alias blfn='b ls --full-name'
 alias brc='b cask'
 alias brci="b cask install"
 alias brcu="b cask uninstall"
-alias brcu="b cask reinstall"
+alias brcr="b cask reinstall"
 
 alias bsvc='b services'
 alias bsvr='b services restart'
