@@ -105,6 +105,8 @@ function! nanplug#plugins#LoadAll() abort
   " show diff when editing a COMMIT_EDITMSG
   Plug 'rhysd/committia.vim'
 
+  Plug 'tpope/vim-fugitive'
+
   " ==========================================================================
   " Language: HTML, XML, and generators: mustache, handlebars
   " ==========================================================================
@@ -167,7 +169,7 @@ function! nanplug#plugins#LoadAll() abort
   "     - NeoVim comes with tpope's 2010 syntax that pulls in sass.vim and
   "       adds comment matching. sass.vim is okay, but doesn't have as many hi
   "       groups.
-  Plug 'JulesWang/css.vim', PlugIf(v:version <= 704)
+  " Plug 'JulesWang/css.vim', PlugIf(v:version <= 704)
   Plug 'hail2u/vim-css3-syntax'
   Plug 'cakebaker/scss-syntax.vim', { 'for': [ 'scss' ] }
 
@@ -203,9 +205,7 @@ function! nanplug#plugins#LoadAll() abort
 
   " Configurable statusline for Vim
   Plug 'itchyny/lightline.vim'
-
-  " Same thing, but for buffers
-  Plug 'bling/vim-bufferline'
+  Plug 'mgee/lightline-bufferline'
 
   " Command-line fuzzy finder and corresponding vim plugin
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --no-update-rc --64' }

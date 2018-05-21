@@ -324,12 +324,6 @@ augroup vimrcEx
   endif
 augroup END
 
-augroup nannumber
-  autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-augroup END
-
 " Leaving this here until I decide on a saner/safer way to do this
 let g:rooter_change_directory_for_non_project_files = 'current'
 
@@ -363,3 +357,5 @@ let g:is_posix = 1
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
 set splitright
+
+set hidden
