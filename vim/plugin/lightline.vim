@@ -1,14 +1,15 @@
 let g:lightline = {
   \   'active': {
-  \     'left': [['mode', 'paste'], ['readonly', 'filename', 'modified']]
+  \     'left': [ [ 'mode', 'paste' ],
+  \               [ 'fugitive', 'readonly', 'filename', 'modified' ] ],
   \   },
-  \   'component_expand': {
-  \     'buffers': 'lightline#bufferline#buffers'
+  \   'component': {
+  \     'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+  \     'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
   \   },
-  \   'component_function': {
-  \     'gitbranch': 'fugitive#head',
-  \   },
-  \   'component_type': {
-  \     'buffers': 'tabsel',
+  \   'component_visible_condition': {
+  \     'readonly': '(&filetype!="help"&& &readonly)',
+  \     'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+  \     'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
   \   }
   \ }

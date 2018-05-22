@@ -2,7 +2,7 @@
 " 1. Settings variables
 " ==========================================================================
 
-let g:mapleader = " "
+let g:mapleader = "\<Space>"
 
 let g:nan_use_completion = has('nvim') && has('python3')
 
@@ -156,7 +156,7 @@ if executable('git')
   endif
 
   if s:has_plug
-    command! PI PlugInstall
+    command! PI PlugInstall | PlugClean
     command! PU PlugUpgrade | PlugUpdate
     let g:plug_window = 'tabnew'
     call plug#begin(g:nan#plug_absdir)
@@ -312,16 +312,6 @@ augroup vimrcEx
     \ endif
 
   " ALE linting events
-  if g:has_async
-    set updatetime=1000
-    let g:ale_lint_on_text_changed = 0
-    autocmd CursorHold * call ale#Lint()
-    autocmd CursorHoldI * call ale#Lint()
-    autocmd InsertEnter * call ale#Lint()
-    autocmd InsertLeave * call ale#Lint()
-  else
-    echoerr "These dotfiles require Neovim or Vim 8."
-  endif
 augroup END
 
 " Leaving this here until I decide on a saner/safer way to do this
@@ -331,7 +321,7 @@ let g:rooter_change_directory_for_non_project_files = 'current'
 " Themes
 " ============================================================================
 
-colorscheme two-firewatch
+colorscheme one
 set background=dark
 
 " ============================================================================

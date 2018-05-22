@@ -29,13 +29,16 @@ function! nanplug#plugins#LoadAll() abort
 
   Plug 'kana/vim-operator-user'
 
-  Plug 'tomtom/tcomment_vim'
+  " Plug 'tomtom/tcomment_vim'
   " gcc to toggle comment
-  " Plug 'tyru/caw.vim'
+  Plug 'tyru/caw.vim'
     " <Leader>s(a/r/d) to modify surrounding the pending operator
   Plug 'rhysd/vim-operator-surround', { 'on': [ '<Plug>(operator-surround' ] }
   " <Leader>c to toggle CamelCase/snak_e the pending operator
   Plug 'tyru/operator-camelize.vim', { 'on': [ '<Plug>(operator-camelize' ] }
+
+  Plug 'kana/vim-textobj-user'
+  Plug 'rhysd/vim-textobj-anyblock'
 
   " ==========================================================================
   " File system, ctags
@@ -51,6 +54,8 @@ function! nanplug#plugins#LoadAll() abort
   Plug 'keith/investigate.vim'
 
   "Plug 'lambdalisue/gina.vim', PlugIf(exists('v:null'))
+
+  Plug 'mattn/emmet-vim'
 
   " :Bdelete to preserve windows
   Plug 'moll/vim-bbye'
@@ -218,6 +223,10 @@ function! nanplug#plugins#LoadAll() abort
   Plug 'airblade/vim-rooter'
   Plug 'mhinz/vim-signify'
 
+  Plug 'tpope/vim-repeat'
+
+  Plug g:nan#vim_dir . '/mine/vim-hr'
+
   " --------------------------------------------------------------------------
   " Quickfix window
   " --------------------------------------------------------------------------
@@ -225,15 +234,12 @@ function! nanplug#plugins#LoadAll() abort
   Plug 'blueyed/vim-qf_resize'
   Plug 'romainl/vim-qf'
 
-  if g:has_async
-    Plug 'w0rp/ale'
-  endif
-
   " ============================================================================
   " Themes
   " ============================================================================
 
-  Plug 'rakr/vim-two-firewatch'
+  " Plug 'rakr/vim-two-firewatch'
+  Plug 'rakr/vim-one'
 
 endfunction
 
