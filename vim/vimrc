@@ -156,7 +156,7 @@ if executable('git')
   endif
 
   if s:has_plug
-    command! PI PlugInstall | PlugClean
+    command! PI PlugInstall
     command! PU PlugUpgrade | PlugUpdate
     let g:plug_window = 'tabnew'
     call plug#begin(g:nan#plug_absdir)
@@ -349,3 +349,6 @@ set splitbelow
 set splitright
 
 set hidden
+
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1

@@ -209,8 +209,13 @@ function! nanplug#plugins#LoadAll() abort
   " ==========================================================================
 
   " Configurable statusline for Vim
-  Plug 'itchyny/lightline.vim'
-  Plug 'mgee/lightline-bufferline'
+  " Plug 'itchyny/lightline.vim'
+
+  " Bufferline
+  " Plug 'bling/vim-bufferline'
+
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
 
   " Command-line fuzzy finder and corresponding vim plugin
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --no-update-rc --64' }
