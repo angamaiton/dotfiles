@@ -260,10 +260,6 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
-" Comment/un-comment like Sublime
-nnoremap <C-\> :TComment<CR>
-vnoremap <C-\> :TComment<CR>
-
 " No longer require tabbing with C-n/C-p
 inoremap <Tab> <C-r>=nan#InsertTabWrapper()<CR>
 inoremap <S-Tab> <C-n>
@@ -274,11 +270,11 @@ inoremap <S-Tab> <C-n>
 
 nnoremap <C-s> :w<CR>
 nnoremap <C-q> :q<CR>
-nnoremap <C-S-q> :qa<CR>
+" nnoremap <C-S-q> :qa<CR>
 
 inoremap <C-s> <ESC>:w<CR>
 inoremap <C-q> <ESC>:q<CR>
-inoremap <C-S-q> <ESC>:qa<CR>
+" inoremap <C-S-q> <ESC>:qa<CR>
 
 nnoremap <F12> :call nanline#ToggleTabline()<CR>
 

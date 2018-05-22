@@ -30,7 +30,9 @@ alias c="code"
 
 if command -v hub >/dev/null; then alias g='hub'; else alias g='git'; fi
 alias g-='g checkout -'
+alias gaa='g add .'
 alias gb='g branch --verbose'
+alias gcms="g commit -m"
 alias gi='g ink'
 alias gg='g grep --line-number --break --heading'
 alias gl='g l --max-count 25'
@@ -69,4 +71,6 @@ alias l="ls -alG"
 alias tmux='tmux -f "${DOTFILES}/tmux/tmux.conf"'
 
 alias edot="cd ${DOTFILES} && ${EDITOR} ."
+
+alias o="${EDITOR} ."
 alias realias="source ${DOTFILES}/shell/aliases.sh"
