@@ -133,3 +133,9 @@ zstyle ':completion:*:*:kill:*:processes' list-colors \
 
 # complete .log filenames if redirecting stderr
 zstyle ':completion:*:*:-redirect-,2>,*:*' file-patterns '*.log'
+
+# ----------------------------------------------------------------------------
+# Completion: cdpath
+# ----------------------------------------------------------------------------
+
+cdpath=($HOME/Downloads $HOME/projects $HOME/sandbox $HOME)

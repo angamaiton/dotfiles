@@ -276,6 +276,11 @@ inoremap <C-s> <ESC>:w<CR>
 inoremap <C-q> <ESC>:q<CR>
 " inoremap <C-S-q> <ESC>:qa<CR>
 
+nnoremap <special> <Leader>, :ls<CR>
+nnoremap <special> <Leader>n :bp<CR>
+nnoremap <special> <Leader>m :bn<CR>
+nnoremap <special> <Leader>t :tabnew<CR>
+
 nnoremap <F12> :call nanline#ToggleTabline()<CR>
 
 let &cpoptions = s:cpo_save

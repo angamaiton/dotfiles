@@ -229,6 +229,9 @@ function! nanplug#plugins#LoadAll() abort
   Plug 'mhinz/vim-signify'
 
   Plug 'tpope/vim-repeat'
+  Plug 'tpope/vim-unimpaired'
+
+  Plug 'junegunn/vim-easy-align'
 
   Plug g:nan#vim_dir . '/mine/vim-hr'
 

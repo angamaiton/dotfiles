@@ -5,7 +5,7 @@ export NAN_SOURCE="${NAN_SOURCE} -> shell/aliases.sh"
 # @see {@link https://github.com/sindresorhus/guides/blob/master/how-not-to-rm-yourself.md#safeguard-rm}
 # ----------------------------------------------------------------------------
 
-alias rm='rm -i'
+if command -v trash >/dev/null; then alias rm='trash'; else alias rm='rm -i'; fi
 
 # ----------------------------------------------------------------------------
 # paths and dirs
@@ -23,6 +23,8 @@ alias downs='down'
 
 alias e="$EDITOR"
 alias c="code"
+alias edot="cd ${DOTFILES} && ${EDITOR} ."
+alias o="${EDITOR} ."
 
 # ----------------------------------------------------------------------------
 # git
@@ -58,6 +60,13 @@ alias root='sudo -s'
 alias se='sudo -e'
 
 # ----------------------------------------------------------------------------
+# tmux
+# ----------------------------------------------------------------------------
+
+alias tmux='tmux -f "${DOTFILES}/tmux/tmux.conf"'
+alias tks="tmux kill-server"
+
+# ----------------------------------------------------------------------------
 # miscellaneous/experimentation
 # ----------------------------------------------------------------------------
 
@@ -68,9 +77,5 @@ alias lt="ls -l -T"
 alias lg="ls -l -G"
 alias l="ls -alG"
 
-alias tmux='tmux -f "${DOTFILES}/tmux/tmux.conf"'
-
-alias edot="cd ${DOTFILES} && ${EDITOR} ."
-
-alias o="${EDITOR} ."
 alias realias="source ${DOTFILES}/shell/aliases.sh"
+
