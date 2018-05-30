@@ -1,253 +1,89 @@
+" autoload/nanplug/plugins.vim
+
 function! nanplug#plugins#LoadAll() abort
-  " Notes on adding plugins:
-  " - Absolutely do not use 'for' if the plugin provides an `ftdetect/`
-
   " ==========================================================================
-  " Vim debugging
+  " Colorscheme
   " ==========================================================================
 
-  " Show slow plugins
-  Plug 'tweekmonster/startuptime.vim', { 'on': [ 'StartupTime' ] }
-
-  " `:Bufferize messages` to get messages (or any :command) in a new buffer
-  let g:bufferize_command = 'tabnew'
-  Plug 'AndrewRadev/bufferize.vim', { 'on': [ 'Bufferize' ] }
-
-  Plug 'cocopon/colorswatch.vim'
-  Plug 'cocopon/pgmnt.vim'
-
-  " Mostly for zS to debug highlight group (:Bufferize scriptnames is nicer
-  " than :Scriptnames)
-  Plug 'tpope/vim-scriptease'
-
-  " ==========================================================================
-  " Embedded filetype support
-  " ==========================================================================
-
-  " tyru/caw.vim, some others use this to determine inline embedded filetypes
-  Plug 'Shougo/context_filetype.vim'
-
-  Plug 'kana/vim-operator-user'
-
-  " Plug 'tomtom/tcomment_vim'
-  " gcc to toggle comment
-  Plug 'tyru/caw.vim'
-    " <Leader>s(a/r/d) to modify surrounding the pending operator
-  Plug 'rhysd/vim-operator-surround', { 'on': [ '<Plug>(operator-surround' ] }
-  " <Leader>c to toggle CamelCase/snak_e the pending operator
-  Plug 'tyru/operator-camelize.vim', { 'on': [ '<Plug>(operator-camelize' ] }
-
-  Plug 'kana/vim-textobj-user'
-  Plug 'rhysd/vim-textobj-anyblock'
-
-  " ==========================================================================
-  " File system, ctags
-  " ==========================================================================
-
-  Plug 'ludovicchabant/vim-gutentags', PlugIf(executable('ctags'))
+  Plug 'rakr/vim-two-firewatch'
 
   " ==========================================================================
   " Commands
   " ==========================================================================
 
+  let l:fzfable = !empty(g:fzf_dir)
+      \ && v:version >= 704
+      \ && (has('nvim') || $TERM_PROGRAM ==# 'iTerm.app')
+  if !empty(g:fzf_dir)
+    Plug g:fzf_dir, PlugIf(l:fzfable)
+    Plug 'junegunn/fzf.vim', PlugIf(l:fzfable)
+  endif
+
   " gK to lookup
   Plug 'keith/investigate.vim'
 
-  "Plug 'lambdalisue/gina.vim', PlugIf(exists('v:null'))
-
-  Plug 'mattn/emmet-vim'
-
-  " :Bdelete to preserve windows
-  Plug 'moll/vim-bbye'
-
-  Plug 'nathanaelkane/vim-indent-guides'
-
-  Plug 'osyo-manga/vim-over', { 'on': [ 'OverCommandLine' ] }
-
-  Plug 'sbdchd/neoformat'
-
-  " Add file manip commands like Remove, Move, Rename, SudoWrite
-  " Do not lazy load, tracks buffers
-  Plug 'tpope/vim-eunuch'
-
-  " <C-w>o to zoom in/out of a window
-  "Plug 'dhruvasagar/vim-zoom'
-  " Better zoom plugin, accounts for command window and doesn't use sessions
-  Plug 'troydm/zoomwintab.vim'
-
-  " in command mode, alt-f/b to go forward/back words
-  Plug 'vim-utils/vim-husk'
-
-  " clear search highlighting
-  Plug 'pgdouyon/vim-evanesco'
-
-  " ==========================================================================
-  " Multiple languages
-  " ==========================================================================
-
-  Plug 'itchyny/vim-parenmatch'
-
-  " special end syntax for various langs
-  Plug 'tpope/vim-endwise'
-
-  " ==========================================================================
-  " Language: bash/shell/zsh
-  " ==========================================================================
-
-  " Upstreams
-  Plug 'chrisbra/vim-sh-indent'
-  Plug 'chrisbra/vim-zsh'
-
-  " ==========================================================================
-  " Language: Git
-  " ==========================================================================
-
-  " creates gitconfig, gitcommit, rebase
-  " provides :DiffGitCached in gitcommit file type
-  " vim 7.4-77 ships with 2013 version, this is newer
-  Plug 'tpope/vim-git'
-
-  " show diff when editing a COMMIT_EDITMSG
-  Plug 'rhysd/committia.vim'
-
-  Plug 'tpope/vim-fugitive'
-
-  " ==========================================================================
-  " Language: HTML, XML, and generators: mustache, handlebars
-  " ==========================================================================
-
-  " Syntax enhancements and htmlcomplete#CompleteTags function override
-  "Plug 'othree/html5.vim'
-
-  "Plug 'tpope/vim-haml'
-
-  " Creates html.handlebars and other fts and sets syn
-  Plug 'mustache/vim-mustache-handlebars'
-
-  " ==========================================================================
-  " Language: JavaScript and derivatives, JSON
-  " ==========================================================================
-
-  Plug 'elzr/vim-json'
-
-  " TypeScript
-  Plug 'leafgarland/typescript-vim'
-  " Alternatively
-  "Plug 'HerringtonDarkholme/yats.vim'
-
-  " ==========================================================================
-  " Language: Markdown, Pandoc
-  " ==========================================================================
-
-  " Override vim included markdown ft* and syntax
-  "   " The git repo has a newer syntax file than the one that ships with vim
-  Plug 'tpope/vim-markdown'
-
-    " ==========================================================================
-  " Language: Stylesheets
-  " ==========================================================================
-
-  " ----------------------------------------
-  " Syntax
-  " ----------------------------------------
-
-  " Upstream Neovim uses https://github.com/genoma/vim-less
-  "   - more groups
-  "   - no conflict with vim-css-color
-
-  "Plug 'groenewege/vim-less'
-  " - the syntax file here is actually older than genoma
-  " - creates less filetype
-  " - Conflicts with vim-css-color
-
-  " 1)  runtime css.vim provides @media syntax highlighting where hail2u
-  "     doesn't JulesWang/css.vim was upstream for $VIMRUNTIME up until Vim 8
-  "     - Only needed for old vim!!
-  " 2)  hail2u extends vim's css highlighting
-  "     - Super up-to-date with spec, after syntax that extends runtime
-  " 3)  scss-syntax needs the 'for' since it has an ftdetect that doesn't check
-  "     if the ft was already set. The result is that without 'for', the
-  "     filetype will be set twice successively (and any autocommands will run
-  "     twice), particularly in neovim which comes with tpope's (older) scss
-  "     rumtimes.
-  "     - Extra indent support
-  "     - NeoVim comes with tpope's 2010 syntax that pulls in sass.vim and
-  "       adds comment matching. sass.vim is okay, but doesn't have as many hi
-  "       groups.
-  " Plug 'JulesWang/css.vim', PlugIf(v:version <= 704)
-  Plug 'hail2u/vim-css3-syntax'
-  Plug 'cakebaker/scss-syntax.vim', { 'for': [ 'scss' ] }
-
-  " Hex (et al) color highlighting
-  "Plug 'Rykka/colorv.vim'    --  requires python
-  "Plug 'chrisbra/Colorizer'  --  slower and not as complete but more features
-  "                               like X11 colors and color translation for
-  "                               degraded terminals
-  Plug 'ap/vim-css-color'
-
-  " ==========================================================================
-  " Language: .tmux.conf
-  " ==========================================================================
-
-  Plug 'tmux-plugins/vim-tmux'
-
-  " ==========================================================================
-  " Language: VimL
-  " ==========================================================================
-
-  Plug 'machakann/vim-vimhelplint'
-
-  " gf to go to where autoloaded function is defined
-  Plug 'kana/vim-gf-user', { 'for': [ 'vim' ] }
-  Plug 'sgur/vim-gf-autoload', { 'for': [ 'vim' ] }
-
-  " Auto-prefix continuation lines with \
-  Plug 'lambdalisue/vim-backslash'
-
-  " ==========================================================================
-  " TO SORT
-  " ==========================================================================
-
-  " Configurable statusline for Vim
-  " Plug 'itchyny/lightline.vim'
-
-  " Bufferline
-  " Plug 'bling/vim-bufferline'
-
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-
-  " Command-line fuzzy finder and corresponding vim plugin
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --no-update-rc --64' }
-  Plug 'junegunn/fzf.vim'
-
-  " Combine with netrw to create a delicious salad dressing
+  " netrw
   Plug 'tpope/vim-vinegar'
 
-  " For those of us too lazy to write our own autochdir plugins
-  Plug 'airblade/vim-rooter'
-  Plug 'mhinz/vim-signify'
+  " ==========================================================================
+  " Input, syntax, spacing
+  " ==========================================================================
 
-  Plug 'tpope/vim-repeat'
+  " highlight matching html tag
+  Plug 'gregsexton/MatchTag'
+
+  " add gS on char to smart split lines at char, like comma lists and html tags
+  Plug 'AndrewRadev/splitjoin.vim'
+
+  " Compatible with Neovim or Vim with this patch level
+  Plug 'neomake/neomake', PlugIf(has('patch-7.4.503'))
+
+  " ==========================================================================
+  " Editing keys
+  " ==========================================================================
+
   Plug 'tpope/vim-unimpaired'
 
-  Plug 'junegunn/vim-easy-align'
+  " . command after plugins
+  Plug 'tpope/vim-repeat'
 
+  " A-k/A-j to move current line up/down
+  Plug 'matze/vim-move'
+
+  " HR with <Leader>f[CHAR]
+  " (that FUCKING comment box)
   Plug g:nan#vim_dir . '/mine/vim-hr'
 
+  " ==========================================================================
+  " Completion
+  " ==========================================================================
+
+  " The language client completion is a bit slow to kick in, but it works
+  Plug 'autozimu/LanguageClient-neovim', WithCompl({
+        \   'branch': 'next',
+        \   'do': 'bash ./install.sh',
+        \ })
+
+  " Main completion engine, bound to <C-o>
+  " Does not start until InsertEnter, so we can set up sources, then load
+  " them, then load NCM
+  Plug 'roxma/nvim-completion-manager', WithCompl({ 'on': [] })
+
   " --------------------------------------------------------------------------
-  " Quickfix window
+  " NCM functionality: Includes
   " --------------------------------------------------------------------------
 
-  Plug 'blueyed/vim-qf_resize'
-  Plug 'romainl/vim-qf'
+  " Include completion, include tags
+  " For what langs are supported, see:
+  " https://github.com/Shougo/neoinclude.vim/blob/master/autoload/neoinclude.vim
+  " Note: NCM Errors when can't find b:node_root (from moll/vim-node)
+  Plug 'Shougo/neoinclude.vim', WithCompl()
 
-  " ============================================================================
-  " Themes
-  " ============================================================================
+  " --------------------------------------------------------------------------
+  " Completion: CSS
+  " --------------------------------------------------------------------------
 
-  " Plug 'rakr/vim-two-firewatch'
-  Plug 'rakr/vim-one'
+  Plug 'calebeby/ncm-css', WithCompl()
 
 endfunction
 

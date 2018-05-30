@@ -1,5 +1,15 @@
 " ==========================================================================
-" 1. Settings variables
+" Sections:
+"   -> Settings variables
+"   -> General
+"   -> Vim UI
+"   -> Plugins
+"   -> Search
+"   -> Theme
+" ==========================================================================
+
+" ==========================================================================
+" Settings variables
 " ==========================================================================
 
 let g:mapleader = "\<Space>"
@@ -8,68 +18,56 @@ let g:nan_use_completion = has('nvim') && has('python3')
 
 let g:has_async = v:version >= 800 || has('nvim')
 
-" ============================================================================
-" 2. Personal defaults
-" May be overridden by **/plugins, after/plugins and **/ftplugins
-" ============================================================================
+" This must be a g: variable to access with the Plug command
+let g:fzf_dir = isdirectory('/usr/local/opt/fzf')
+      \ ? '/usr/local/opt/fzf'
+      \ : isdirectory(expand('~/.fzf'))
+      \ ? '~/.fzf'
+      \ : ''
 
-set modeline
+" ==========================================================================
+" General
+" ==========================================================================
 
-" Pretty quick... errorprone on old vim so only apply to nvim
-if has('nvim') | set updatetime=250 | endif
+" How many lines of history Vim remembers
+set history=500
 
-" ----------------------------------------------------------------------------
-" 2.1 Display
-" ----------------------------------------------------------------------------
+" Enable filetype plugins
+filetype plugin indent on 
 
-set title                              " wintitle = filename - vim
+" Set file to readonly when changed from outside
+set autoread
 
-set novisualbell                       " no flashes
-set noerrorbells                       " no beeps
+" Run :write before other commands
+set autowrite
 
-set numberwidth=5                      " context around current cursor position
+" Context around current cursor position
+set numberwidth=5
+
+" Best of both worlds (line numbers)
 set number relativenumber
-set scrolloff=8
-set sidescrolloff=16
 
-set textwidth=78                      " after column 80, &tw+3
-set colorcolumn=+3
-set colorcolumn+=120
-set cursorline
+" Set spellfile to location that is guaranteed to exist, can be symlinked to
+" Dropbox or kept in Git and managed outside of the dotfiles.
+set spellfile=$HOME/.vim-spell-en.utf-8.add
 
-set synmaxcol=512                     " don't syntax highlight long lines
-
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
-  syntax on
+" Load matchit.vim, but only if the user hasn't installed a newer version.
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+  runtime! macros/matchit.vim
 endif
 
-if exists('+signcolumn') | set signcolumn=yes | endif
+" ----------------------------------------------------------------------------
+" General: Bell
+" ----------------------------------------------------------------------------
 
-" ------------------------------------
-" Tab line
-" ------------------------------------
+" No flashes
+set novisualbell
 
-set showtabline=0                     " start OFF, toggle =2 to show tabline
-
-" ------------------------------------
-" Status line
-" ------------------------------------
-
-set laststatus=2                      " always show all statuslines
-
-" ------------------------------------
-" Command line
-" ------------------------------------
-
-" This is slow on some terminals and often gets hidden by msgs so leave it off
-set noshowcmd
-
-set noshowmode                        " don't show -- INSERT -- in cmdline
+" No beeps
+set noerrorbells
 
 " ----------------------------------------------------------------------------
-" Input
+" General: Input
 " ----------------------------------------------------------------------------
 
 " Enable mouse
@@ -80,26 +78,132 @@ set notimeout
 set ttimeout
 
 " ----------------------------------------------------------------------------
-" Wild and file globbing stuff in command mode
+" General: Lines
 " ----------------------------------------------------------------------------
 
-set browsedir=buffer                  " browse files in same dir as open file
-set wildmenu                          " Enhanced command line completion.
-set wildmode=list:longest,full        " Complete files using a menu AND list
-let &wildignorecase = v:version >= 704
+" Show the statusline
+set laststatus=2
 
-" wildignore prevents things from showing up in cmd completion
-" It's for things you'd NEVER open in Vim, like caches and binary files
-" @see https://github.com/tpope/vim-fugitive/issues/121#issuecomment-38720847
-" @see https://github.com/kien/ctrlp.vim/issues/63
-" @see https://github.com/tpope/vim-vinegar/issues/61#issuecomment-167432416
-" @see http://tbaggery.com/2011/08/08/effortless-ctags-with-git.html#comment-1396330403
-"
-" So don't do this! There are cases where you'd edit them or their contents
-"set wildignore+=.git
-"set wildignore+=.hg,.svn
-"set wildignore+=tags
-"set wildignore+=*.manifest
+" Don't show -- INSERT -- in commandline
+set noshowmode
+
+" ----------------------------------------------------------------------------
+" General: Sides
+" ----------------------------------------------------------------------------
+
+set textwidth=78                      " after column 80, &tw+3
+
+set colorcolumn=+3
+
+set colorcolumn+=120
+
+set cursorline
+
+set synmaxcol=512
+
+if exists('+signcolumn') | set signcolumn=yes | endif
+
+" ==========================================================================
+" Vim UI
+" ==========================================================================
+
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
+  syntax on
+endif
+
+" Dark theme for nightf4gs
+set background=dark
+
+set nowrap
+
+" J command doesn't add extra space
+set nojoinspaces
+
+" Display extra whitespace
+set list listchars=tab:»·,trail:·,nbsp:·
+
+" Set window title by default.
+set title
+
+" Always focus on splited window.
+set splitright
+set splitbelow
+
+" Show the cursor position at all times
+set ruler
+
+" display incomplete commands
+set showcmd
+
+" ==========================================================================
+" Plugins
+" ==========================================================================
+
+" TODO: Lockfile to install automatically?
+let g:nan#vim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
+let g:nan#plug_dir = '/vendor/'
+let g:nan#plug_absdir = g:nan#vim_dir . g:nan#plug_dir
+
+if executable('git')
+  let s:has_plug = !empty(glob(expand(g:nan#vim_dir . '/autoload/plug.vim')))
+  if !s:has_plug && executable('curl')
+    call nanplug#install#Install()
+    let s:has_plug = 1
+  endif
+
+  if s:has_plug
+    command! PI PlugInstall
+    command! PU PlugUpgrade | PlugUpdate
+    let g:plug_window = 'tabnew'
+    call plug#begin(g:nan#plug_absdir)
+    if empty($VIMNOPLUGS) | call nanplug#plugins#LoadAll() | endif
+    call plug#end()
+  endif
+endif
+
+" ==========================================================================
+" Matching/Search
+" ==========================================================================
+
+" tenths of a sec
+set matchtime=1                       
+
+" briefly jump to matching paren?
+set showmatch                         
+
+" Ignore case when searching
+set ignorecase
+
+" When searching try to be smart about cases 
+set smartcase
+
+" Highlight search results
+set hlsearch
+
+" Makes search act like search in modern browsers
+set incsearch
+
+if exists('+tagcase') && has('patch-7.4.2230') | set tagcase=followscs | endif
+
+" Searches wrap around end of the file.
+set wrapscan                          
+
+" ==========================================================================
+" Wild/globbing
+" ==========================================================================
+
+" browse files in same dir as open file
+set browsedir=buffer
+
+" Enhanced command line completion
+set wildmenu
+
+" Complete files using a menu AND list
+set wildmode=list:longest,full
+
+let &wildignorecase = v:version >= 704
 
 " Binary
 set wildignore+=*.aux,*.out,*.toc
@@ -126,82 +230,14 @@ set wildignore+=*.swp,.lock,.DS_Store,._*,tags.lock
 
 " reload files if they were edited elsewhere?
 "set autoread
-set autowrite     " Automatically :write before running commands
 
 set fileformats=unix,mac,dos
 " Not modifiable if no window (e.g. resourcing vimrc)
 if !&modifiable | set fileformat=unix | endif
 
-" ----------------------------------------------------------------------------
-" Writing swaps
-" ----------------------------------------------------------------------------
-
-set noswapfile
-set nobackup
-set nowritebackup
-
-" ============================================================================
-" Plugins: autoinstall vim-plug, define plugins, install plugins if needed
-" ============================================================================
-
-let g:nan#vim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
-let g:nan#plug_dir = '/vendor/'
-let g:nan#plug_absdir = g:nan#vim_dir . g:nan#plug_dir
-
-if executable('git')
-  let s:has_plug = !empty(glob(expand(g:nan#vim_dir . '/autoload/plug.vim')))
-  if !s:has_plug && executable('curl')
-    call nanplug#install#Install()
-    let s:has_plug = 1
-  endif
-
-  if s:has_plug
-    command! PI PlugInstall
-    command! PU PlugUpgrade | PlugUpdate
-    let g:plug_window = 'tabnew'
-    call plug#begin(g:nan#plug_absdir)
-    if empty($VIMNOPLUGS) | call nanplug#plugins#LoadAll() | endif
-    call plug#end()
-  endif
-endif
-
-" ----------------------------------------------------------------------------
-" Input auto-formatting (global defaults)
-" Probably need to update these in after/ftplugin too since ftplugins will
-" probably update it.
-" ----------------------------------------------------------------------------
-
-set formatoptions=
-set formatoptions+=c                  " Auto-wrap comments using textwidth
-" set formatoptions+=r                  " Continue comments by default
-set formatoptions-=o                  " do not continue comment using o or O
-set formatoptions+=q                  " continue comments with gq
-set formatoptions-=a                  " auto-gq on type in comments?
-set formatoptions+=n                  " Recognize numbered lists
-set formatoptions+=2                  " Use indent from 2nd line of a paragraph
-set formatoptions-=l                  " break lines that are already long?
-set formatoptions+=1                  " Break before 1-letter words
-" Vim 7.4 only: no // comment when joining commented lines
-if v:version >= 704 | set formatoptions+=j | endif
-
-set nrformats-=octal                  " never use octal when <C-x> or <C-a>
-
-" Does this invalidate what's above?
-filetype plugin indent on
-
-" ----------------------------------------------------------------------------
-" Whitespace
-" ----------------------------------------------------------------------------
-
-set nowrap
-set nojoinspaces                      " J command doesn't add extra space
-
-" Display extra whitespace
-set list listchars=tab:»·,trail:·,nbsp:·
-
-" ----------------------------------------------------------------------------
+" ==========================================================================
 " Indenting - overridden by indent plugins
-" ----------------------------------------------------------------------------
+" ==========================================================================
 
 set autoindent                        " indent when creating newline
 
@@ -242,21 +278,12 @@ set noshiftround
 " 'shiftwidth'. 'tabstop' or 'softtabstop' is used in other places.
 set smarttab
 
-set backspace=indent,eol,start        " bs anything
+" Backspace anywhere
+set backspace=indent,eol,start
 
-" ----------------------------------------------------------------------------
-" Match and search
-" ----------------------------------------------------------------------------
-
-set matchtime=1                       " tenths of a sec
-set showmatch                         " briefly jump to matching paren?
-set hlsearch
-set incsearch
-set wrapscan                          " Searches wrap around end of the file.
-set ignorecase
-" Follow smartcase and ignorecase when doing tag search
-if exists('+tagcase') && has('patch-7.4.2230') | set tagcase=followscs | endif
-set smartcase
+" ============================================================================
+" Filetypes
+" ============================================================================
 
 " ----------------------------------------
 " Filetype: python
@@ -279,6 +306,35 @@ let g:is_bash = 1
 " $VIMRUNTIME/syntax/vim.vim
 " disable mzscheme, tcl highlighting
 let g:vimsyn_embed = 'lpPr'
+
+" ==========================================================================
+" Swapfiles/Backups
+" ==========================================================================
+
+set nobackup
+set nowritebackup
+set noswapfile    " http://robots.thoughtbot.com/post/18739402579/global-gitignore#comment-458413287
+
+" ----------------------------------------------------------------------------
+" Built-in completion
+" ----------------------------------------------------------------------------
+
+" Don't consider = symbol as part filename.
+set isfname-==
+
+set complete-=i                       " don't complete includes
+set complete-=t                       " don't complete tags
+set completeopt-=preview              " don't open scratch (e.g. echodoc)
+set completeopt+=menu,menuone         " show PUM, even for one thing
+
+" ----------------------------------------------------------------------------
+" Message output on vim actions
+" ----------------------------------------------------------------------------
+
+set shortmess-=f                      " (file x of x) instead of just (x of x)
+set shortmess+=ilmnrxoOtWI
+" Disable "Pattern not found" messages
+if has('patch-7.4.314') | set shortmess+=c | endif
 
 " ============================================================================
 " Autocommands
@@ -310,42 +366,16 @@ augroup vimrcEx
     \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal g`\"" |
     \ endif
-
-  " ALE linting events
 augroup END
 
 " Leaving this here until I decide on a saner/safer way to do this
 let g:rooter_change_directory_for_non_project_files = 'current'
 
-" ============================================================================
-" Themes
-" ============================================================================
+" ==========================================================================
+" Theme
+" ==========================================================================
 
-colorscheme one
-set background=dark
+" Atom's one positive
+colorscheme two-firewatch
 
-" ============================================================================
-" Temporary
-" ============================================================================
-
-" Set spellfile to location that is guaranteed to exist, can be symlinked to
-" Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.
-set spellfile=$HOME/.vim-spell-en.utf-8.add
-
-" Autocomplete with dictionary words when spell check is on
-set complete+=kspell
-
-" Always use vertical diffs
-set diffopt+=vertical
-
-set ruler         " show the cursor position all the time
-
-" When the type of shell script is /bin/sh, assume a POSIX-compatible
-" shell for syntax highlighting purposes.
-let g:is_posix = 1
-
-" Open new split panes to right and bottom, which feels more natural
-set splitbelow
-set splitright
-
-set hidden
+let g:two_firewatch_italics=1

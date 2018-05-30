@@ -77,5 +77,7 @@ alias lt="ls -l -T"
 alias lg="ls -l -G"
 alias l="ls -alG"
 
+alias path='echo $PATH | tr -s ":" "\n"'
+
 alias realias="source ${DOTFILES}/shell/aliases.sh"
 

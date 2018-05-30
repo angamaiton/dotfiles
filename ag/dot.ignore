@@ -33,3 +33,9 @@ GTAGS
 GRTAGS
 GPATH
 tags.log
+
+*.m4a
+*.mp3
+*.itdb
+*.m4p
+*.itc

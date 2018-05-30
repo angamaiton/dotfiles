@@ -1,3 +1,7 @@
+# init.sh
+
+# Sourced on all shells, interactive or not
+
 NAN_SOURCE="${NAN_SOURCE} -> shell/init.sh {"
 export NAN_INIT=1
 

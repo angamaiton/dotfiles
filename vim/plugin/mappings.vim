@@ -176,6 +176,9 @@ noremap   H   ^
 " default is {count}from last line in visible window
 noremap   L   g_
 
+" Y yanks from the cursor to the end of line as expected. See :help Y.
+nnoremap Y y$
+
 " ----------------------------------------------------------------------------
 " Reselect visual block after indent
 " ----------------------------------------------------------------------------
@@ -235,8 +238,6 @@ nnoremap sx "_x
 nnoremap sd "_d
 nnoremap sD "_D
 
-" ============================================================================
-
 nnoremap \ :Ag<CR>
 nnoremap <C-P> :Files<CR>
 
@@ -275,11 +276,15 @@ nnoremap <C-q> :q<CR>
 inoremap <C-s> <ESC>:w<CR>
 inoremap <C-q> <ESC>:q<CR>
 " inoremap <C-S-q> <ESC>:qa<CR>
+nnoremap <Leader>i mmgg=G`m<CR>
 
 nnoremap <special> <Leader>, :ls<CR>
-nnoremap <special> <Leader>n :bp<CR>
-nnoremap <special> <Leader>m :bn<CR>
+nnoremap <special> <Leader>[ :bp<CR>
+nnoremap <special> <Leader>] :bn<CR>
 nnoremap <special> <Leader>t :tabnew<CR>
+
+" Toggle paste mode on and off
+nnoremap <Leader>pp :setlocal paste!<cr>
 
 nnoremap <F12> :call nanline#ToggleTabline()<CR>
 

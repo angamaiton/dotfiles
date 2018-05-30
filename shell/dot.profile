@@ -17,8 +17,13 @@ NAN_SOURCE="${NAN_SOURCE} -> dot.profile {"
 # Local path (?)
 # ==============================================================================
 
-PATH="${DOTFILES}/bin:$PATH"
+PATH="${HOME}/.local/bin:${PATH}"
+PATH="${DOTFILES}/bin:${PATH}"
 export PATH
+
+# ============================================================================
+# POSIX sh support
+# ============================================================================
 
 [ -n "$NAN_SH" ] && . "${DOTFILES}/shell/interactive.sh"
 

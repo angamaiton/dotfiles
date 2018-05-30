@@ -6,13 +6,49 @@
   co      = checkout
   cb      = checkout -b
 
+  git     = !exec git
+  g       = grep --break --heading --line-number
+
+  l       = log --abbrev-commit --oneline
+  ld      = log --abbrev-commit --date=short --pretty=ld
+  ll      = log --abbrev-commit --oneline --decorate --all
+  lm      = ld --author="angamaiton"
+  lb      = log --abbrev-commit --oneline --decorate --all --graph
+  lg      = log --abbrev-commit           --decorate --all --graph
+  new     = log --no-merges --abbrev-commit --oneline         ORIG_HEAD..
+  news    = log --no-merges --abbrev-commit --oneline --stat  ORIG_HEAD..
+
+  pure    = pull --rebase
+
+  forget  = rm -r --cached
+
   rehard  = reset --hard
   st      = status
   s       = status --short --branch
+
+  t       = tag
+
+# ============================================================================
+# Color
+# ============================================================================
+[color]
+  branch      = auto
+  diff        = auto
+  grep        = auto
+  interactive = auto
+  status      = auto
+  ui          = auto
+  pager       = true
+
+[color "diff-highlight"]
+  oldNormal    = red bold
+  oldHighlight = red bold 52
+  newNormal    = green bold
+  newHighlight = green bold 22
 
 # ============================================================================
 # Local
 # ============================================================================
 
 [include]
-  path = "~/.dotfiles/local/gitconfig"
+path = "~/.dotfiles/local/gitconfig"

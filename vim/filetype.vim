@@ -25,7 +25,7 @@ augroup filetypedetect
 
   autocmd! BufNewFile,BufRead *.dump setfiletype sql
   " autocmd! BufNewFile,BufRead .flake8 setfiletype dosini
-  " autocmd! BufNewFile,BufRead *.gradle setfiletype groovy
+  autocmd! BufNewFile,BufRead *.gradle setfiletype groovy
 
   autocmd! BufNewFile,BufRead *.gitconfig setfiletype gitconfig
 
@@ -37,8 +37,14 @@ augroup filetypedetect
   autocmd! BufNewFile,BufRead *.marko setfiletype html.marko
   autocmd! BufNewFile,BufRead *.template setfiletype html
 
+  autocmd! BufNewFile,BufRead .eslintrc,.stylelintrc call s:SetJSONorYAML()
+
   autocmd! BufNewFile,BufRead *.md setfiletype markdown
+
+  autocmd! BufNewFile,BufRead *.plist setfiletype xml
 
   autocmd! BufNewFile,BufRead .babelrc,.bowerrc,.jshintrc setfiletype json
   autocmd! BufNewFile,BufRead *.tern-config,.tern-config setfiletype json
+
+  autocmd! BufNewFile,BufRead .zprofile setfiletype zsh
 augroup END
