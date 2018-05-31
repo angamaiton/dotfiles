@@ -98,6 +98,9 @@ function! nanplug#plugins#LoadAll() abort
 
   Plug 'calebeby/ncm-css', WithCompl()
 
+  Plug 'chrisbra/vim-sh-indent'
+  Plug 'chrisbra/vim-zsh'
+
 endfunction
 
 function! PlugIf(condition, ...) abort

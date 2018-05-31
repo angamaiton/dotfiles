@@ -10,6 +10,8 @@ NAN_SOURCE="${NAN_SOURCE} -> .zshrc {"
 . "${HOME}/.dotfiles/shell/dot.profile"
 . "${DOTFILES}/shell/interactive.sh"
 
+export HISTORY_IGNORE="(pwd|l|ls|ll|cl|clear)"
+
 # dedupe these path arrays (they shadow PATH, FPATH, etc)
 typeset -gU cdpath path fpath manpath
 
@@ -82,5 +84,11 @@ fi
 # ============================================================================
 
 . "${ZDOTDIR}/config/keybindings.zsh"
+
+# ============================================================================
+# Local
+# ============================================================================
+
+. "${DOTFILES}/shell/after.sh"
 
 export NAN_SOURCE="${NAN_SOURCE} }"
