@@ -12,8 +12,8 @@ function! nanplug#plugins#LoadAll() abort
   " ==========================================================================
 
   let l:fzfable = !empty(g:fzf_dir)
-      \ && v:version >= 704
-      \ && (has('nvim') || $TERM_PROGRAM ==# 'iTerm.app')
+        \ && v:version >= 704
+        \ && (has('nvim') || $TERM_PROGRAM ==# 'iTerm.app')
   if !empty(g:fzf_dir)
     Plug g:fzf_dir, PlugIf(l:fzfable)
     Plug 'junegunn/fzf.vim', PlugIf(l:fzfable)
@@ -24,6 +24,11 @@ function! nanplug#plugins#LoadAll() abort
 
   " netrw
   Plug 'tpope/vim-vinegar'
+
+  Plug 'tpope/vim-fugitive'
+
+  " Statusline
+  Plug 'itchyny/lightline.vim'
 
   " ==========================================================================
   " Input, syntax, spacing
@@ -68,6 +73,14 @@ function! nanplug#plugins#LoadAll() abort
   " Does not start until InsertEnter, so we can set up sources, then load
   " them, then load NCM
   Plug 'roxma/nvim-completion-manager', WithCompl({ 'on': [] })
+
+  " --------------------------------------------------------------------------
+  " Completion: Snippet engine
+  " --------------------------------------------------------------------------
+
+  Plug 'Shougo/neosnippet', WithCompl()
+  Plug 'Shougo/neosnippet-snippets', WithCompl()
+  Plug 'honza/vim-snippets', WithCompl()
 
   " --------------------------------------------------------------------------
   " NCM functionality: Includes

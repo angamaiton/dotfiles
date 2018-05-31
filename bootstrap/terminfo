@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+#
+# Copy compiled terminfo files
+#
+
+# errors are okay.
+#set -eu
+
+# ============================================================================
+# initialize script and dependencies
+# ============================================================================
+
+if [[ -z "$DOTFILES" ]]; then
+  cd -- "$(dirname "$0")/.." || exit 1
+  DOTFILES="$(pwd)"
+fi
+. "${DOTFILES}/lib/pretty.bash"
+
+# ==============================================================================
+# Main
+# ==============================================================================
+
+__nan_status "Copying terminfo files..."
+
+# RXVT
+
+# Install all uncompiled terminfo files, e.g.
+# - xterm-256color-italic for iterm2
+# - tmux-256color for tmux
+find "${DOTFILES}/terminfo/" -name '*.terminfo' -exec tic -x {} \;
