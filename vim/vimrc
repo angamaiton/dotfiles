@@ -272,9 +272,9 @@ set nocindent
 " Tabbing - overridden by editorconfig, after/ftplugin
 " ----------------------------------------------------------------------------
 
-set tabstop=2
+" set tabstop=2
 
-set shiftwidth=2
+" set shiftwidth=2
 
 " use multiple of shiftwidth when shifting indent levels.
 " this is OFF so block comments don't get fudged when using ">>" and "<<"
@@ -352,6 +352,19 @@ augroup nanfile
   autocmd BufReadPre *.min.* syntax off
 augroup END
 
+" augroup nanale
+"   autocmd!
+"   if g:has_async
+"     set updatetime=1000
+"     autocmd CursorHold * call ale#Lint()
+"     autocmd CursorHoldI * call ale#Lint()
+"     autocmd InsertEnter * call ale#Lint()
+"     autocmd InsertLeave * call ale#Lint()
+"   else
+"     echoerr "Please install Neovim/Vim 8"
+"   endif
+" augroup END
+
 " augroup nanlines
 "   autocmd!
 "   autocmd VimEnter * nested call nanline#Init()
@@ -385,5 +398,6 @@ let g:deoplete#enable_at_startup = 1
 
 " Atom's one positive
 colorscheme two-firewatch
+
 
 let g:two_firewatch_italics=1

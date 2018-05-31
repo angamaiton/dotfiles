@@ -43,9 +43,9 @@ function! nanplug#plugins#LoadAll() abort
   Plug 'AndrewRadev/splitjoin.vim'
 
   " Compatible with Neovim or Vim with this patch level
-  " Plug 'neomake/neomake', PlugIf(has('patch-7.4.503'))
+  Plug 'neomake/neomake', PlugIf(has('patch-7.4.503'))
 
-  Plug 'w0rp/ale'
+  " Plug 'w0rp/ale'
 
   " automatically clear search highlight; TODO: implement without plugin
   Plug 'pgdouyon/vim-evanesco'
@@ -117,7 +117,7 @@ function! nanplug#plugins#LoadAll() abort
   " Languages: Swift
   " ==========================================================================
 
-  Plug 'keith/swift.vim'
+  " Plug 'keith/swift.vim'
 
   " Comments
   Plug 'tomtom/tcomment_vim'
