@@ -1,6 +1,9 @@
 " autoload/nanplug/plugins.vim
 
 function! nanplug#plugins#LoadAll() abort
+
+  Plug 'tweekmonster/startuptime.vim', { 'on': [ 'StartupTime' ] }
+
   " ==========================================================================
   " Colorscheme
   " ==========================================================================
@@ -43,9 +46,9 @@ function! nanplug#plugins#LoadAll() abort
   Plug 'AndrewRadev/splitjoin.vim'
 
   " Compatible with Neovim or Vim with this patch level
-  Plug 'neomake/neomake', PlugIf(has('patch-7.4.503'))
+  " Plug 'neomake/neomake', PlugIf(has('patch-7.4.503'))
 
-  " Plug 'w0rp/ale'
+  Plug 'w0rp/ale'
 
   " automatically clear search highlight; TODO: implement without plugin
   Plug 'pgdouyon/vim-evanesco'

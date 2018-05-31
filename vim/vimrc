@@ -103,7 +103,7 @@ set cursorline
 
 set synmaxcol=512
 
-if exists('+signcolumn') | set signcolumn=yes | endif
+" if exists('+signcolumn') | set signcolumn=yes | endif
 
 " ==========================================================================
 " Vim UI
@@ -138,6 +138,8 @@ set ruler
 
 " display incomplete commands
 set showcmd
+
+set hidden
 
 " ==========================================================================
 " Plugins
