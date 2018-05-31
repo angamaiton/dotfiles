@@ -261,10 +261,6 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
-" No longer require tabbing with C-n/C-p
-inoremap <Tab> <C-r>=nan#InsertTabWrapper()<CR>
-inoremap <S-Tab> <C-n>
-
 " ----------------------------------------------------------------------------
 " Miscellaneous personal settings (to sort, EXPERIMENTAL)
 " ----------------------------------------------------------------------------
@@ -272,6 +268,9 @@ inoremap <S-Tab> <C-n>
 nnoremap <C-s> :w<CR>
 nnoremap <C-q> :q<CR>
 " nnoremap <C-S-q> :qa<CR>
+
+nnoremap <C-\> :TComment<CR>
+inoremap <C-\> :TComment<CR>
 
 inoremap <C-s> <ESC>:w<CR>
 inoremap <C-q> <ESC>:q<CR>
@@ -287,6 +286,10 @@ nnoremap <special> <Leader>t :tabnew<CR>
 nnoremap <Leader>pp :setlocal paste!<cr>
 
 nnoremap <F12> :call nanline#ToggleTabline()<CR>
+
+if g:nan_tab_completion
+  call nan#tabcomplete#Init()
+endif
 
 let &cpoptions = s:cpo_save
 unlet s:cpo_save

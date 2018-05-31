@@ -30,6 +30,8 @@ function! nanplug#plugins#LoadAll() abort
   " Statusline
   Plug 'itchyny/lightline.vim'
 
+  Plug 'sbdchd/neoformat'
+
   " ==========================================================================
   " Input, syntax, spacing
   " ==========================================================================
@@ -41,7 +43,12 @@ function! nanplug#plugins#LoadAll() abort
   Plug 'AndrewRadev/splitjoin.vim'
 
   " Compatible with Neovim or Vim with this patch level
-  Plug 'neomake/neomake', PlugIf(has('patch-7.4.503'))
+  " Plug 'neomake/neomake', PlugIf(has('patch-7.4.503'))
+
+  Plug 'w0rp/ale'
+
+  " automatically clear search highlight; TODO: implement without plugin
+  Plug 'pgdouyon/vim-evanesco'
 
   " ==========================================================================
   " Editing keys
@@ -64,15 +71,16 @@ function! nanplug#plugins#LoadAll() abort
   " ==========================================================================
 
   " The language client completion is a bit slow to kick in, but it works
-  Plug 'autozimu/LanguageClient-neovim', WithCompl({
-        \   'branch': 'next',
-        \   'do': 'bash ./install.sh',
-        \ })
+  " Plug 'autozimu/LanguageClient-neovim', WithCompl({
+  "       \   'branch': 'next',
+  "       \   'do': 'bash ./install.sh',
+  "       \ })
 
   " Main completion engine, bound to <C-o>
   " Does not start until InsertEnter, so we can set up sources, then load
   " them, then load NCM
-  Plug 'roxma/nvim-completion-manager', WithCompl({ 'on': [] })
+  " Plug 'roxma/nvim-completion-manager', WithCompl({ 'on': [] })
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
   " --------------------------------------------------------------------------
   " Completion: Snippet engine
@@ -98,8 +106,21 @@ function! nanplug#plugins#LoadAll() abort
 
   Plug 'calebeby/ncm-css', WithCompl()
 
+  " ==========================================================================
+  " Languages: bash/zsh
+  " ==========================================================================
+
   Plug 'chrisbra/vim-sh-indent'
   Plug 'chrisbra/vim-zsh'
+
+  " ==========================================================================
+  " Languages: Swift
+  " ==========================================================================
+
+  Plug 'keith/swift.vim'
+
+  " Comments
+  Plug 'tomtom/tcomment_vim'
 
 endfunction
 

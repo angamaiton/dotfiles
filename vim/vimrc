@@ -18,6 +18,8 @@ let g:nan_use_completion = has('nvim') && has('python3')
 
 let g:has_async = v:version >= 800 || has('nvim')
 
+let g:nan_tab_completion = 1 " (s-tab)
+
 " This must be a g: variable to access with the Plug command
 let g:fzf_dir = isdirectory('/usr/local/opt/fzf')
       \ ? '/usr/local/opt/fzf'
@@ -270,6 +272,10 @@ set nocindent
 " Tabbing - overridden by editorconfig, after/ftplugin
 " ----------------------------------------------------------------------------
 
+set tabstop=2
+
+set shiftwidth=2
+
 " use multiple of shiftwidth when shifting indent levels.
 " this is OFF so block comments don't get fudged when using ">>" and "<<"
 set noshiftround
@@ -370,6 +376,8 @@ augroup END
 
 " Leaving this here until I decide on a saner/safer way to do this
 let g:rooter_change_directory_for_non_project_files = 'current'
+
+let g:deoplete#enable_at_startup = 1
 
 " ==========================================================================
 " Theme
