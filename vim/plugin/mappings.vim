@@ -177,7 +177,7 @@ noremap   H   ^
 noremap   L   g_
 
 " Y yanks from the cursor to the end of line as expected. See :help Y.
-nnoremap Y y$
+nnoremap  Y   y$
 
 " ----------------------------------------------------------------------------
 " Reselect visual block after indent
@@ -286,6 +286,7 @@ nnoremap <special> <Leader>t :tabnew<CR>
 nnoremap <Leader>pp :setlocal paste!<cr>
 
 nnoremap <F12> :call nanline#ToggleTabline()<CR>
+
 
 if g:nan_tab_completion
   call nan#tabcomplete#Init()

@@ -53,6 +53,8 @@ function! nanplug#plugins#LoadAll() abort
   " automatically clear search highlight; TODO: implement without plugin
   Plug 'pgdouyon/vim-evanesco'
 
+  Plug 'junegunn/vim-easy-align'
+
   " ==========================================================================
   " Editing keys
   " ==========================================================================
@@ -120,7 +122,7 @@ function! nanplug#plugins#LoadAll() abort
   " Languages: Swift
   " ==========================================================================
 
-  " Plug 'keith/swift.vim'
+  Plug 'keith/swift.vim'
 
   " Comments
   Plug 'tomtom/tcomment_vim'

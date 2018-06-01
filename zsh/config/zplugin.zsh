@@ -3,7 +3,7 @@ NAN_SOURCE="${NAN_SOURCE} -> zplugin.zsh {"
 # Needed first for turbo mode
 zplugin light 'zdharma/fast-syntax-highlighting'
 
-zplugin ice pick"async.zsh" src"pure.zsh"; zplugin light sindresorhus/pure
+# zplugin ice pick"async.zsh" src"pure.zsh"; zplugin light sindresorhus/pure
 
 # ----------------------------------------------------------------------------
 # Vendor: Commands
@@ -28,12 +28,19 @@ zplugin light 'zsh-users/zsh-autosuggestions'
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=("expand-or-complete")
 
 # ----------------------------------------------------------------------------
+# Vendor: prompt
+# ----------------------------------------------------------------------------
+
+zplugin light 'denysdovhan/spaceship-prompt'
+
+# ----------------------------------------------------------------------------
 # Vendor: Completion
 # ----------------------------------------------------------------------------
 
 zplugin light 'zsh-users/zsh-completions'
 
 zplugin light 'vasyharan/zsh-brew-services'
+
 
 # ----------------------------------------------------------------------------
 # zplugin management

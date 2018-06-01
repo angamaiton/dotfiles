@@ -99,7 +99,7 @@ set colorcolumn=+3
 
 set colorcolumn+=120
 
-set cursorline
+set nocursorline
 
 set synmaxcol=512
 
@@ -140,6 +140,9 @@ set ruler
 set showcmd
 
 set hidden
+
+" For dealing with sluggishness
+set lazyredraw
 
 " ==========================================================================
 " Plugins
