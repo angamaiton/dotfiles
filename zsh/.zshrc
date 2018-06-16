@@ -91,4 +91,6 @@ fi
 
 . "${DOTFILES}/shell/after.sh"
 
+. "${ZDOTDIR}/config/tmux.zsh"
+
 export NAN_SOURCE="${NAN_SOURCE} }"

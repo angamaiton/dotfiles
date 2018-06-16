@@ -13,7 +13,7 @@ brew cask install deluge
 
 # brew cask install docker
 brew cask install firefox
-brew cask install gpgtools
+brew cask install gpg-suite
 brew cask install hammerspoon
 brew cask install marked
 
@@ -21,4 +21,4 @@ brew cask install marked
 # Applications (beta)
 # ============================================================================
 
-brew cask install iterm-beta
+brew cask install iterm

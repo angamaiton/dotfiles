@@ -163,6 +163,7 @@ if executable('git')
   if s:has_plug
     command! PI PlugInstall
     command! PU PlugUpgrade | PlugUpdate
+    command! PC PlugClean
     let g:plug_window = 'tabnew'
     call plug#begin(g:nan#plug_absdir)
     if empty($VIMNOPLUGS) | call nanplug#plugins#LoadAll() | endif

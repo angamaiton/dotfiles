@@ -41,6 +41,8 @@ __symlink() {
   nan-symlink "git/dot.gitconfig" ".config/git/config"
   nan-symlink "git/dot.gitignore" ".config/git/ignore"
 
+  nan-symlink  "tmux/tmux.conf" ".tmux.conf"
+
   # (n)vim
   nan-symlink  "vim" ".vim"
   nan-symlink  "vim" ".config/nvim"

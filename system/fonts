@@ -3,3 +3,4 @@
 set -e
 
 brew cask install font-fira-code
+brew cask install font-ibm-plex
