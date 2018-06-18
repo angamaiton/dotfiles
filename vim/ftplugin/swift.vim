@@ -1,3 +1,3 @@
 " ftplugin/swift.vim
 
-call nan#TwoSpace()
+call nan#FourSpace()

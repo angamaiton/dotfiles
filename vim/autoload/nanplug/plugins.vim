@@ -55,6 +55,10 @@ function! nanplug#plugins#LoadAll() abort
 
   Plug 'junegunn/vim-easy-align'
 
+  Plug 'mattn/emmet-vim'
+
+  Plug 'rstacruz/vim-closer'
+
   " ==========================================================================
   " Editing keys
   " ==========================================================================
@@ -87,6 +91,8 @@ function! nanplug#plugins#LoadAll() abort
   " Plug 'roxma/nvim-completion-manager', WithCompl({ 'on': [] })
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
+  " Plug 'Shougo/neco-syntax', WithCompl()
+
   " --------------------------------------------------------------------------
   " Completion: Snippet engine
   " --------------------------------------------------------------------------
@@ -109,7 +115,16 @@ function! nanplug#plugins#LoadAll() abort
   " Completion: CSS
   " --------------------------------------------------------------------------
 
-  Plug 'calebeby/ncm-css', WithCompl()
+  " Plug 'calebeby/ncm-css', WithCompl()
+
+  " --------------------------------------------------------------------------
+  " Completion: Swift
+  " --------------------------------------------------------------------------
+
+  " Causes errors; potentially debug
+  " Plug 'landaire/deoplete-swift', WithCompl()
+
+  Plug 'mitsuse/autocomplete-swift'
 
   " ==========================================================================
   " Languages: bash/zsh
@@ -117,6 +132,12 @@ function! nanplug#plugins#LoadAll() abort
 
   Plug 'chrisbra/vim-sh-indent'
   Plug 'chrisbra/vim-zsh'
+
+  " ==========================================================================
+  " Languages: Crystal
+  " ==========================================================================
+
+  Plug 'rhysd/vim-crystal'
 
   " ==========================================================================
   " Languages: Swift

@@ -31,6 +31,10 @@ function! nan#TwoSpace() abort
   setlocal expandtab shiftwidth=2 softtabstop=2
 endfunction
 
+function! nan#FourSpace() abort
+  setlocal expandtab shiftwidth=4 softtabstop=4
+endfunction
+
 function! nan#TwoTabs() abort
   setlocal noexpandtab shiftwidth=2 softtabstop=2
 endfunction

@@ -278,9 +278,9 @@ set nocindent
 " Tabbing - overridden by editorconfig, after/ftplugin
 " ----------------------------------------------------------------------------
 
-" set tabstop=2
-
-" set shiftwidth=2
+set tabstop=2
+set shiftwidth=2
+set expandtab
 
 " use multiple of shiftwidth when shifting indent levels.
 " this is OFF so block comments don't get fudged when using ">>" and "<<"
@@ -397,6 +397,16 @@ augroup END
 let g:rooter_change_directory_for_non_project_files = 'current'
 
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+
+" set sources
+let g:deoplete#sources = {}
+" let g:deoplete#sources.cpp = ['LanguageClient']
+let g:deoplete#sources.python = ['LanguageClient']
+let g:deoplete#sources.python3 = ['LanguageClient']
+let g:deoplete#sources.rust = ['LanguageClient']
+" let g:deoplete#sources.c = ['LanguageClient']
+let g:deoplete#sources.vim = ['vim']
 
 " ==========================================================================
 " Theme

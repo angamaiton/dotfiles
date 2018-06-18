@@ -22,6 +22,7 @@ alias downs='down'
 # ----------------------------------------------------------------------------
 
 alias e="$EDITOR"
+alias uedit="nvim +PlugInstall +PlugUpdate +PlugClean! +qa"
 alias c="code"
 alias edot="cd ${DOTFILES} && ${EDITOR} ."
 alias o="${EDITOR} ."
@@ -50,6 +51,17 @@ alias gt='g take'
 
 alias py2="python2"
 alias py3="python3"
+
+# ----------------------------------------------------------------------------
+# meta
+# ----------------------------------------------------------------------------
+
+alias dotf="cd ${DOTFILES}"
+alias dotl="cd ${DOTFILES}/local"
+
+alias evr="dotf && ${EDITOR} vim/vimrc"
+alias evp="dotf && ${EDITOR} vim/autoload/nanplug/plugins.vim"
+alias ezs="dotf && ${EDITOR} zsh/.zshrc"
 
 # ----------------------------------------------------------------------------
 # sudo ops
