@@ -12,17 +12,13 @@ silent! unmap gsr
 silent! unmap <Leader>c
 
 if nanplug#Exists('caw.vim')
-  nmap gc   <Plug>(caw:prefix)  
-  xmap gc   <Plug>(caw:prefix)  
+  nmap gc   <Plug>(caw:prefix)
+  xmap gc   <Plug>(caw:prefix)
 
-  nmap gcc   <Plug>(caw:hatpos:toggle)  
-  xmap gcc   <Plug>(caw:hatpos:toggle)  
+  nmap gcc   <Plug>(caw:hatpos:toggle)
+  xmap gcc   <Plug>(caw:hatpos:toggle)
 
   map <silent>  gsc    <Plug>(caw:hatpos:toggle:operator)
-
-  " Comment/un-comment like Sublime
-  nnoremap <C-\> <Plug>(caw:hatpos:toggle)
-  vnoremap <C-\> <Plug>(caw:hatpos:toggle)
 endif
 
 if nanplug#Exists('vim-operator-surround')

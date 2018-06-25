@@ -36,6 +36,13 @@ function! nanplug#plugins#LoadAll() abort
   Plug 'sbdchd/neoformat'
 
   " ==========================================================================
+  " Embedded filetype support
+  " ==========================================================================
+
+  " tyru/caw.vim, some others use this to determine inline embedded filetypes
+  Plug 'Shougo/context_filetype.vim'
+
+  " ==========================================================================
   " Input, syntax, spacing
   " ==========================================================================
 
@@ -57,7 +64,10 @@ function! nanplug#plugins#LoadAll() abort
 
   Plug 'mattn/emmet-vim'
 
-  Plug 'rstacruz/vim-closer'
+  " Insert a paired parenthesis, bracket, etc.
+  Plug 'jiangmiao/auto-pairs'
+  " More conservative version – only works when pressing Enter
+  " Plug 'rstacruz/vim-closer'
 
   " ==========================================================================
   " Editing keys
@@ -74,6 +84,14 @@ function! nanplug#plugins#LoadAll() abort
   " HR with <Leader>f[CHAR]
   " (that FUCKING comment box)
   Plug g:nan#vim_dir . '/mine/vim-hr'
+
+  Plug 'kana/vim-operator-user'
+  " gcc to toggle comment
+  " Plug 'tyru/caw.vim', { 'on': [ '<Plug>(caw' ] }
+  " <Leader>s(a/r/d) to modify surrounding the pending operator
+  Plug 'rhysd/vim-operator-surround', { 'on': [ '<Plug>(operator-surround' ] }
+  " <Leader>c to toggle CamelCase/snak_e the pending operator
+  Plug 'tyru/operator-camelize.vim', { 'on': [ '<Plug>(operator-camelize' ] }
 
   " ==========================================================================
   " Completion
@@ -140,10 +158,22 @@ function! nanplug#plugins#LoadAll() abort
   Plug 'rhysd/vim-crystal'
 
   " ==========================================================================
+  " Languages: Dart
+  " ==========================================================================
+
+  Plug 'dart-lang/dart-vim-plugin'
+
+  " ==========================================================================
   " Languages: Swift
   " ==========================================================================
 
   Plug 'keith/swift.vim'
+
+  " ==========================================================================
+  " Languages: VimL
+  " ==========================================================================
+
+  Plug 'lambdalisue/vim-backslash'
 
   " Comments
   Plug 'tomtom/tcomment_vim'

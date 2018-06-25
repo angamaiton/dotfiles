@@ -1,4 +1,5 @@
 " plugin/mappings.vim
+
 scriptencoding utf-8
 
 " cpoptions are reset but use <special> when mapping anyway
@@ -19,7 +20,7 @@ noremap   gs    <NOP>
 " In normal mode, jump to command mode with <CR>
 " Don't map <CR>, it's a pain to unmap for various window types like quickfix
 " where <CR> should jump to the entry, or NetRW or unite or fzf.
-"nnoremap  <special>  <CR>  <Esc>:<C-U>
+" nnoremap  <special>  <CR>  <Esc>:<C-U>
 
 command! Q q
 
@@ -265,14 +266,14 @@ nnoremap <C-l> <C-w>l
 " Miscellaneous personal settings (to sort, EXPERIMENTAL)
 " ----------------------------------------------------------------------------
 
-nnoremap <C-s> :w<CR>
+nnoremap <C-w> :w<CR>
 nnoremap <C-q> :q<CR>
 " nnoremap <C-S-q> :qa<CR>
 
 nnoremap <C-\> :TComment<CR>
 inoremap <C-\> :TComment<CR>
 
-inoremap <C-s> <ESC>:w<CR>
+inoremap <C-w> <ESC>:w<CR>
 inoremap <C-q> <ESC>:q<CR>
 " inoremap <C-S-q> <ESC>:qa<CR>
 nnoremap <Leader>i mmgg=G`m<CR>
