@@ -124,7 +124,7 @@ set nowrap
 set nojoinspaces
 
 " Display extra whitespace
-set list listchars=tab:»·,trail:·,nbsp:·
+set list listchars=tab:>=,trail:~,extends:>,precedes:<,nbsp:.
 
 " Set window title by default.
 set title

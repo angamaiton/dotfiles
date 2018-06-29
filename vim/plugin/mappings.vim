@@ -270,9 +270,6 @@ nnoremap <C-w> :w<CR>
 nnoremap <C-q> :q<CR>
 " nnoremap <C-S-q> :qa<CR>
 
-nnoremap <C-\> :TComment<CR>
-inoremap <C-\> :TComment<CR>
-
 inoremap <C-w> <ESC>:w<CR>
 inoremap <C-q> <ESC>:q<CR>
 " inoremap <C-S-q> <ESC>:qa<CR>

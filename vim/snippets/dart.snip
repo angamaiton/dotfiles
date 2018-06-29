@@ -1,0 +1,32 @@
+snippet statelessWidget
+alias   slw
+  class ${0} extends StatelessWidget {
+    Widget build(BuildContext context) {
+      @override
+      return ${1};
+    }
+  }
+
+snippet statefulWidget
+alias   sfw
+  class ${0} extends StatefulWidget {
+    Widget build(BuildContext context) {
+      @override
+      return ${1};
+    }
+  }
+
+snippet @required
+alias @re
+  @required
+  ${0}
+
+snippet @immutable
+alias @im
+  @immutable
+  ${0}
+
+snippet importFoundation
+alias imf
+  import 'package:flutter/foundation.dart';
+  ${0}

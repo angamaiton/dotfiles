@@ -52,3 +52,6 @@
 
 [include]
 path = "~/.dotfiles/local/gitconfig"
+[user]
+	name = Niklas Nothstine
+	email = ofurmadur@icloud.com

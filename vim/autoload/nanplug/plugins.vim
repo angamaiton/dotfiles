@@ -33,7 +33,17 @@ function! nanplug#plugins#LoadAll() abort
   " Statusline
   Plug 'itchyny/lightline.vim'
 
+  " Formatting
   Plug 'sbdchd/neoformat'
+
+  " Git
+  Plug 'tpope/vim-fugitive'
+
+  " :Bdelete to preserve windows
+  Plug 'moll/vim-bbye'
+
+  " in command mode, alt-f/b to go forward/back words
+  Plug 'vim-utils/vim-husk'
 
   " ==========================================================================
   " Embedded filetype support
@@ -87,7 +97,7 @@ function! nanplug#plugins#LoadAll() abort
 
   Plug 'kana/vim-operator-user'
   " gcc to toggle comment
-  " Plug 'tyru/caw.vim', { 'on': [ '<Plug>(caw' ] }
+  Plug 'tyru/caw.vim', { 'on': [ '<Plug>(caw' ] }
   " <Leader>s(a/r/d) to modify surrounding the pending operator
   Plug 'rhysd/vim-operator-surround', { 'on': [ '<Plug>(operator-surround' ] }
   " <Leader>c to toggle CamelCase/snak_e the pending operator
@@ -145,38 +155,53 @@ function! nanplug#plugins#LoadAll() abort
   Plug 'mitsuse/autocomplete-swift'
 
   " ==========================================================================
-  " Languages: bash/zsh
+  " Language: bash/zsh
   " ==========================================================================
 
   Plug 'chrisbra/vim-sh-indent'
   Plug 'chrisbra/vim-zsh'
 
   " ==========================================================================
-  " Languages: Crystal
+  " Language: Crystal
   " ==========================================================================
 
   Plug 'rhysd/vim-crystal'
 
   " ==========================================================================
-  " Languages: Dart
+  " Language: Dart
   " ==========================================================================
 
   Plug 'dart-lang/dart-vim-plugin'
 
+  " --------------------------------------------------------------------------
+  " Language: JavaScript
+  " --------------------------------------------------------------------------
+
+  Plug 'neoclide/vim-jsx-improve'
+
   " ==========================================================================
-  " Languages: Swift
+  " Language: Markdown
+  " ==========================================================================
+
+  " Plug 'tpope/vim-markdown'
+  Plug 'gabrielelana/vim-markdown'
+
+  " ==========================================================================
+  " Language: Swift
   " ==========================================================================
 
   Plug 'keith/swift.vim'
 
   " ==========================================================================
-  " Languages: VimL
+  " Language: VimL
   " ==========================================================================
 
-  Plug 'lambdalisue/vim-backslash'
+  " Can't use <Enter> anymore if this is installed; why?
+  " Plug 'lambdalisue/vim-backslash'
+
 
   " Comments
-  Plug 'tomtom/tcomment_vim'
+  " Plug 'tomtom/tcomment_vim'
 
 endfunction
 

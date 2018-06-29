@@ -41,7 +41,6 @@ zplugin light 'zsh-users/zsh-completions'
 
 zplugin light 'vasyharan/zsh-brew-services'
 
-
 # ----------------------------------------------------------------------------
 # zplugin management
 # ----------------------------------------------------------------------------

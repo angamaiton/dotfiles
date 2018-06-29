@@ -56,8 +56,7 @@ bindkey -M vicmd  '^[[F'    end-of-line
 # Left and right should jump through words
 # Opt-Left
 bindkey           '^[^[[D'  backward-word
-bindkey -M vicmd  '^[^[[D'  backward-word
-# Opt-Right
+bindkey -M vicmd  '^[^[[D'  backward-word # Opt-Right
 bindkey           '^[^[[C'  forward-word
 bindkey -M vicmd  '^[^[[C'  forward-word
 # C-Left
