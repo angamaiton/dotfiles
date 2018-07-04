@@ -12,12 +12,16 @@ if [[ -z "$DOTFILES" ]]; then
 fi
 . "${DOTFILES}/lib/pretty.bash"
 
+# Clean room
+# reset TERM since we use custom one in iTerm
+TERM=xterm-256color
+
 # ============================================================================
 # taps
 # ============================================================================
 
 # brew services launchctl manager -- no formulae
-# brew tap homebrew/services
+brew tap homebrew/services
 brew tap caskroom/versions
 brew tap caskroom/fonts
 
@@ -29,6 +33,15 @@ brew update
 
 # brew cask completion
 brew install brew-cask-completion
+
+# ============================================================================
+# compilers, tools, and libs
+# ============================================================================
+
+brew install automake cmake
+brew install coreutils findutils moreutils
+brew install libtool
+brew install pkg-config
 
 # ============================================================================
 # editor
@@ -79,6 +92,7 @@ brew install exa
 # shells
 # ============================================================================
 
+brew install bats shellcheck
 brew install tmux
 brew install zsh
 

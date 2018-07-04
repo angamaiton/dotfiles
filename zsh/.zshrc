@@ -53,6 +53,12 @@ zmodload -i zsh/complist
 # run compdefs provided by plugins
 __nan_has 'zplugin' && zplugin cdreplay -q
 
+# ============================================================================
+# Title
+# ============================================================================
+
+. "${ZDOTDIR}/config/title.zsh"
+
 # ----------------------------------------------------------------------------
 # Plugins: fasd
 # ----------------------------------------------------------------------------
@@ -68,13 +74,13 @@ else
 fi
 
 # ----------------------------------------------------------------------------
-# Plugins: fzf (installed via package manager)
+# Plugins: fzf (installed via brew)
 # ----------------------------------------------------------------------------
 
 if [[ -d /usr/local/opt/fzf ]]; then
   [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]] &&
     export PATH="$PATH:/usr/local/opt/fzf/bin"
-  __nan_source "/usr/local/opt/fzf/shell/completion.zsh" 2>/dev/null
+  __nan_source "/usr/local/opt/fzf/shell/completion.zsh"
   __nan_source "/usr/local/opt/fzf/shell/key-bindings.zsh"
   NAN_SOURCE="${NAN_SOURCE} -> fzf"
 fi

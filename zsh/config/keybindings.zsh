@@ -69,6 +69,31 @@ bindkey -M vicmd  '^[[1;5C' vi-forward-word
 # C-n to partially accept
 bindkey           '^N'  forward-word
 
+
+# ----------------------------------------------------------------------------
+# Keybindings: Editing keys
+# ----------------------------------------------------------------------------
+
+# fix delete - Fn-delete
+# Don't bind in vicmd mode
+bindkey '^[[3~' delete-char
+
+# Allow using backspace from :normal [A]ppend
+bindkey -M viins '^?' backward-delete-char
+
+# ----------------------------------------------------------------------------
+# Keybindings: History navigation
+# Don't bind in vicmd mode, so I can edit multiline commands properly.
+# ----------------------------------------------------------------------------
+
+# Up/Down search history filtered using already entered contents
+bindkey '^[[A'  history-search-backward
+bindkey '^[[B'  history-search-forward
+
+# PgUp/Dn navigate through history like regular up/down
+bindkey '^[[5~' up-history
+bindkey '^[[6~' down-history
+
 # ----------------------------------------------------------------------------
 # Keybindings: Plugin - zsh-autosuggestions
 # ----------------------------------------------------------------------------

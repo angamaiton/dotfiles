@@ -1,5 +1,5 @@
 let g:lightline = extend(get(g:, 'lightline', {}), {
-    \ 'colorscheme': 'twofirewatch',
+    \ 'colorscheme': 'onedark',
     \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
     \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]

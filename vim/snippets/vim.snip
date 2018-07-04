@@ -9,3 +9,19 @@ alias   @cb
   " ----------------------------------------------------------------------------
   " ${0}
   " ----------------------------------------------------------------------------
+
+snippet Plug
+alias   @pl
+  Plug '${0}'
+
+snippet  cpoptions
+abbr     let s:cpo_save = &cpooptions | set cpoptions&vim
+alias    s:cpo_save cpoptions
+options  head
+    let s:cpo_save = &cpoptions
+    set cpoptions&vim
+
+    ${0}
+
+    let &cpoptions = s:cpo_save
+    unlet s:cpo_save

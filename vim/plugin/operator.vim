@@ -31,5 +31,10 @@ if nanplug#Exists('vim-operator-surround')
   nmap <special> <Leader>c <Plug>(operator-camelize-toggle)
 endif
 
+if nanplug#Exists('tcomment_vim')
+  nnoremap <C-\> :TComment<CR>
+  vnoremap <C-\> :TComment<CR>
+endif
+
 let &cpoptions = s:cpo_save
 unlet s:cpo_save

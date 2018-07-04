@@ -393,27 +393,22 @@ augroup vimrcEx
     \ endif
 augroup END
 
-" Leaving this here until I decide on a saner/safer way to do this
-let g:rooter_change_directory_for_non_project_files = 'current'
-
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
-
-" set sources
-let g:deoplete#sources = {}
-" let g:deoplete#sources.cpp = ['LanguageClient']
-let g:deoplete#sources.python = ['LanguageClient']
-let g:deoplete#sources.python3 = ['LanguageClient']
-let g:deoplete#sources.rust = ['LanguageClient']
-" let g:deoplete#sources.c = ['LanguageClient']
-let g:deoplete#sources.vim = ['vim']
+" let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_smart_case = 1
+"
+" " set sources
+" let g:deoplete#sources = {}
+" " let g:deoplete#sources.cpp = ['LanguageClient']
+" let g:deoplete#sources.python = ['LanguageClient']
+" let g:deoplete#sources.python3 = ['LanguageClient']
+" let g:deoplete#sources.rust = ['LanguageClient']
+" " let g:deoplete#sources.c = ['LanguageClient']
+" let g:deoplete#sources.vim = ['vim']
 
 " ==========================================================================
 " Theme
 " ==========================================================================
 
 " Atom's one positive
-colorscheme two-firewatch
-
-
-let g:two_firewatch_italics=1
+colorscheme onedark
+" colorscheme two-firewatch

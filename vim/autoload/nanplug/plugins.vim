@@ -8,7 +8,8 @@ function! nanplug#plugins#LoadAll() abort
   " Colorscheme
   " ==========================================================================
 
-  Plug 'rakr/vim-two-firewatch'
+  " Plug 'rakr/vim-two-firewatch'
+  Plug 'joshdick/onedark.vim'
 
   " ==========================================================================
   " Commands
@@ -44,6 +45,8 @@ function! nanplug#plugins#LoadAll() abort
 
   " in command mode, alt-f/b to go forward/back words
   Plug 'vim-utils/vim-husk'
+
+  Plug 'airblade/vim-rooter'
 
   " ==========================================================================
   " Embedded filetype support
@@ -97,7 +100,7 @@ function! nanplug#plugins#LoadAll() abort
 
   Plug 'kana/vim-operator-user'
   " gcc to toggle comment
-  Plug 'tyru/caw.vim', { 'on': [ '<Plug>(caw' ] }
+  " Plug 'tyru/caw.vim', { 'on': [ '<Plug>(caw' ] }
   " <Leader>s(a/r/d) to modify surrounding the pending operator
   Plug 'rhysd/vim-operator-surround', { 'on': [ '<Plug>(operator-surround' ] }
   " <Leader>c to toggle CamelCase/snak_e the pending operator
@@ -108,17 +111,17 @@ function! nanplug#plugins#LoadAll() abort
   " ==========================================================================
 
   " The language client completion is a bit slow to kick in, but it works
-  " Plug 'autozimu/LanguageClient-neovim', WithCompl({
-  "       \   'branch': 'next',
-  "       \   'do': 'bash ./install.sh',
-  "       \ })
+  Plug 'autozimu/LanguageClient-neovim', WithCompl({
+        \   'branch': 'next',
+        \   'do': 'bash ./install.sh',
+        \ })
 
   " Main completion engine, bound to <C-o>
   " Does not start until InsertEnter, so we can set up sources, then load
   " them, then load NCM
-  " Plug 'roxma/nvim-completion-manager', WithCompl({ 'on': [] })
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'roxma/nvim-completion-manager', WithCompl({ 'on': [] })
 
+  " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   " Plug 'Shougo/neco-syntax', WithCompl()
 
   " --------------------------------------------------------------------------
@@ -143,7 +146,13 @@ function! nanplug#plugins#LoadAll() abort
   " Completion: CSS
   " --------------------------------------------------------------------------
 
-  " Plug 'calebeby/ncm-css', WithCompl()
+  Plug 'calebeby/ncm-css', WithCompl()
+
+  " ----------------------------------------------------------------------------
+  " Completion: JavaScript
+  " ----------------------------------------------------------------------------
+
+  Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
 
   " --------------------------------------------------------------------------
   " Completion: Swift
@@ -174,10 +183,12 @@ function! nanplug#plugins#LoadAll() abort
   Plug 'dart-lang/dart-vim-plugin'
 
   " --------------------------------------------------------------------------
-  " Language: JavaScript
+  " Language: JavaScript and derivatives
   " --------------------------------------------------------------------------
 
   Plug 'neoclide/vim-jsx-improve'
+
+  Plug 'elzr/vim-json'
 
   " ==========================================================================
   " Language: Markdown
@@ -196,12 +207,57 @@ function! nanplug#plugins#LoadAll() abort
   " Language: VimL
   " ==========================================================================
 
+  Plug 'kana/vim-gf-user', { 'for': [ 'vim' ] }
+  Plug 'sgur/vim-gf-autoload', { 'for': [ 'vim' ] }
+
   " Can't use <Enter> anymore if this is installed; why?
   " Plug 'lambdalisue/vim-backslash'
 
+  " ==========================================================================
+  " UI -- load last!
+  " ==========================================================================
+
+  Plug 'mhinz/vim-signify'
+
+    " --------------------------------------------------------------------------
+  " Quickfix window
+  " --------------------------------------------------------------------------
+
+  Plug 'blueyed/vim-qf_resize'
+  Plug 'romainl/vim-qf'
+
+  " --------------------------------------------------------------------------
+  " Multi sign column
+  " --------------------------------------------------------------------------
+
+  " Always show signs column with marks
+  " Too many features, slow start
+  " Plug 'tomtom/quickfixsigns_vim'
+  " Still slowish but better
+  Plug 'kshenoy/vim-signature'
+
+  " --------------------------------------------------------------------------
+  " Window events
+  " --------------------------------------------------------------------------
+
+  " Disabled, not worth the overhead.
+  " Alternatively use sjl/vitality.vim -- but that has some cursor shape stuff
+  " that Neovim doesn't need.
+  " @see <https://github.com/sjl/vitality.vim/issues/31>
+  "Plug 'tmux-plugins/vim-tmux-focus-events'
+
+  Plug 'wellle/visual-split.vim', { 'on': [
+        \   'VSResize', 'VSSplit',
+        \   'VSSplitAbove', 'VSSplitBelow',
+        \   '<Plug>(Visual-Split',
+        \ ] }
+
+  " --------------------------------------------------------------------------
+  " VCS signs
+  " --------------------------------------------------------------------------
 
   " Comments
-  " Plug 'tomtom/tcomment_vim'
+  Plug 'tomtom/tcomment_vim'
 
 endfunction
 
