@@ -5,7 +5,7 @@ export NAN_SOURCE="${NAN_SOURCE} -> shell/aliases.sh"
 # @see {@link https://github.com/sindresorhus/guides/blob/master/how-not-to-rm-yourself.md#safeguard-rm}
 # ----------------------------------------------------------------------------
 
-if command -v trash >/dev/null; then alias rm='trash'; else alias rm='rm -i'; fi
+alias rm='rm -i'
 
 # ----------------------------------------------------------------------------
 # paths and dirs
@@ -13,19 +13,27 @@ if command -v trash >/dev/null; then alias rm='trash'; else alias rm='rm -i'; fi
 
 alias ..='cd -- ..'
 alias ....='cd -- ../..'
+alias cd-='cd -- -'
+alias cdd='cd -- "${DOTFILES}"'
+alias cdv='cd -- "${VDOTDIR}"'
 alias dirs='dirs -v' # default to vert, use -l for list
 alias down='cd -- "${XDG_DOWNLOAD_DIR}"'
 alias downs='down'
+alias tree='tree -CF'
+
+# ----------------------------------------------------------------------------
+# cat (prefer bin/dog)
+# ----------------------------------------------------------------------------
+
+alias crm='dog README.md'
 
 # ----------------------------------------------------------------------------
 # editors
 # ----------------------------------------------------------------------------
 
-alias e="$EDITOR"
+alias e="e"
 alias uedit="nvim +PlugInstall +PlugUpdate +PlugClean! +qa"
 alias c="code"
-alias edot="cd ${DOTFILES} && ${EDITOR} ."
-alias o="${EDITOR} ."
 
 # ----------------------------------------------------------------------------
 # git
@@ -44,6 +52,23 @@ alias gp='g push'
 alias gpo='g push origin'
 alias gs='g status'
 alias gt='g take'
+
+# ----------------------------------------------------------------------------
+# greppers
+# ----------------------------------------------------------------------------
+
+alias f='find'
+alias grep='grep --color=auto'
+alias rg='rg --hidden --smart-case --ignore-file "${DOTFILES}/ag/dot.ignore"'
+
+# always prefer ripgrep
+if command -v rg >/dev/null; then
+  alias ag='rg'
+elif command -v ag >/dev/null; then
+  # --numbers is a default and not supported on old ag
+  # --one-device not supported on old ag
+  alias ag='ag --hidden --smart-case'
+fi
 
 # ============================================================================
 # languages/environments
@@ -113,6 +138,8 @@ alias tks="tmux kill-server"
 # ============================================================================
 
 alias brokensymlinks='find . -type l ! -exec test -e {} \; -print'
+alias mdl='mdl --config "${DOTFILES}/mdl/dot.mdlrc"'
+alias o='open'
 
 # ----------------------------------------------------------------------------
 # miscellaneous/experimentation

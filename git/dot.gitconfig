@@ -6,6 +6,11 @@
   co      = checkout
   cb      = checkout -b
 
+  d       = diff
+	dc      = diff --cached
+	dino    = diff --name-only
+	dns     = diff --ignore-all-space
+
   git     = !exec git
   g       = grep --break --heading --line-number
 
@@ -52,6 +57,7 @@
 
 [include]
 path = "~/.dotfiles/local/gitconfig"
+
 [user]
 	name = Niklas Nothstine
 	email = ofurmadur@icloud.com

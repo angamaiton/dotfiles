@@ -21,33 +21,35 @@ mkdir -p -- "${HOME}/.config"
 # ============================================================================
 
 __symlink() {
-  __nan_status "Symlinking dotfiles..."
+  __nan_status "Symlinking                     dotfiles..."
 
   # nan-symlink  "alacritty.yml" ".config/alacritty.yml"
 
   # REQUIRED in ~/ -- ag looks for ~/.agignore LAST and includes it.
   # .ignore files are for project local only
-  nan-symlink  "shell/dot.profile" ".profile"
+  nan-symlink  "shell/dot.profile"             ".profile"
 
   # REQUIRED in ~/ -- ag looks for ~/.agignore LAST and includes it.
   # .ignore files are for project local only
-  nan-symlink  "ag/dot.ignore" ".agignore"
+  nan-symlink  "ag/dot.ignore"                 ".agignore"
 
   # universal-ctags
-  nan-symlink  "universal-ctags/dot.ctags" ".ctags"
+  nan-symlink  "universal-ctags/dot.ctags"     ".ctags"
 
   # XDG-compatible
   # nan-symlink "git/dot.gitconfig" ".config/git/config"
-  nan-symlink "git/dot.gitconfig" ".config/git/config"
-  nan-symlink "git/dot.gitignore" ".config/git/ignore"
+  nan-symlink  "git/dot.gitconfig"             ".config/git/config"
+  nan-symlink  "git/dot.gitignore"             ".config/git/ignore"
 
-  nan-symlink "shell/dot.inputrc" ".config/readline/inputrc"
+  nan-symlink  "mdl/dot.mdlrc"                 ".config/mdl/dot.mdlrc"
 
-  nan-symlink  "tmux/tmux.conf" ".tmux.conf"
+  nan-symlink  "shell/dot.inputrc"             ".config/readline/inputrc"
+
+  nan-symlink  "tmux/tmux.conf"                ".tmux.conf"
 
   # (n)vim
-  nan-symlink  "vim" ".vim"
-  nan-symlink  "vim" ".config/nvim"
+  nan-symlink  "vim"                           ".vim"
+  nan-symlink  "vim"                           ".config/nvim"
 
   case "$OSTYPE" in
     darwin*)
@@ -56,9 +58,9 @@ __symlink() {
   esac
 
   # Shell
-  nan-symlink "zsh/dot.zshenv" ".zshenv"
+  nan-symlink "zsh/dot.zshenv"                 ".zshenv"
 
-  __nan_status "Done! [symlink.sh]"
+  __nan_status "Done!                          [symlink.sh]"
 }
 
 __symlink

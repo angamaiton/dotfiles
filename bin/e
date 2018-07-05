@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ -z "$1" ]; then
+  $EDITOR .
+else
+  $EDITOR "$1"
+fi

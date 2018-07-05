@@ -126,7 +126,7 @@ function! nanplug#plugins#LoadAll() abort
   Plug 'roxma/nvim-completion-manager', WithCompl({ 'on': [] })
 
   " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  " Plug 'Shougo/neco-syntax', WithCompl()
+  Plug 'Shougo/neco-syntax', WithCompl()
 
   " --------------------------------------------------------------------------
   " Completion: Snippet engine
