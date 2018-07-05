@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+set -evo
+
+. "${DOTFILES}/lib/helpers.sh"
+. "${DOTFILES}/lib/pretty.bash"
+
+if ! __nan_has "asdf"; then
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.4.3
+fi
+
+install_asdf_plugin() {
+  local name="$1"
+
+  if ! asdf plugin-list | grep -Fq "$name"; then
+    asdf plugin-add "$name"
+  fi
+}
+
+install_asdf_plugin "ruby"
+install_asdf_plugin "python"
+install_asdf_plugin "nodejs"
+install_asdf_plugin "rust"
+
+install_asdf_language() {
+  local language="$1"
+  local version
+  version="$(asdf list-all "$language" | grep '^[0-9]' | grep -v '[a-z]' | tail -1)"
+
+  if ! asdf list "$language" | grep -Fq "$version"; then
+    asdf install "$language" "$version"
+    asdf global "$language" "$version"
+  fi
+}
+
+install_python() {
+  if ! asdf list python; then
+    asdf install python 3.6.5
+    asdf global python 3.6.5 2.7.15
+    asdf install python 2.7.15
+    pip install --upgrade pip
+    pip2 install --upgrade pip
+  fi
+}
+
+__nan_echo "Installing Ruby..."
+install_asdf_language "ruby"
+gem update --system
+
+__nan_echo "Installing Python..."
+install_python
+
+__nan_echo "Installing Rust..."
+install_asdf_language "rust"
+
+__nan_echo "Installing Node.js..."
+bash "$HOME/.asdf/plugins/nodejs/bin/import-release-team-keyring"
+install_asdf_language "nodejs"
+
+source "${HOME}/.asdf/asdf.sh"

@@ -46,7 +46,11 @@ function! nanplug#plugins#LoadAll() abort
   " in command mode, alt-f/b to go forward/back words
   Plug 'vim-utils/vim-husk'
 
+  " autochdir to project root; detects Git, project.json, etc.
   Plug 'airblade/vim-rooter'
+
+  " Alignment
+  Plug 'junegunn/vim-easy-align'
 
   " ==========================================================================
   " Embedded filetype support

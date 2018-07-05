@@ -239,12 +239,9 @@ nnoremap sx "_x
 nnoremap sd "_d
 nnoremap sD "_D
 
-nnoremap \ :Ag<CR>
-nnoremap <C-P> :Files<CR>
-
 " Edit another file in the same directory as the current file
 " uses expression to extract path from current file's path
-" noremap <Leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
+noremap <Leader>enf :e <C-R>=expand("%:p:h") . '/'<CR>
 
 " ----------------------------------------------------------------------------
 " Miscellaneous Thoughtbot bindings
@@ -266,18 +263,15 @@ nnoremap <C-l> <C-w>l
 " Miscellaneous personal settings (to sort, EXPERIMENTAL)
 " ----------------------------------------------------------------------------
 
-nnoremap <C-w> :w<CR>
+nnoremap  Q :qa<CR>
 nnoremap <C-q> :q<CR>
 " nnoremap <C-S-q> :qa<CR>
 
-inoremap <C-w> <ESC>:w<CR>
 inoremap <C-q> <ESC>:q<CR>
 " inoremap <C-S-q> <ESC>:qa<CR>
 nnoremap <Leader>i mmgg=G`m<CR>
 
 nnoremap <special> <Leader>, :ls<CR>
-nnoremap <special> <Leader>[ :bp<CR>
-nnoremap <special> <Leader>] :bn<CR>
 nnoremap <special> <Leader>t :tabnew<CR>
 
 " Toggle paste mode on and off

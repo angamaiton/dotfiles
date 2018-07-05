@@ -67,9 +67,9 @@ export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 # -R raw control chars (default)
 # -X don't clear screen on quit
 # -e LESS option to quit at EOF
-export LESS="-eFRX"
+# export LESS="-eFRX"
 # disable less history
-export LESSHISTFILE=-
+# export LESSHISTFILE=-
 
 # man
 export MANWIDTH=88

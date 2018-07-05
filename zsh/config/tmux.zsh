@@ -8,6 +8,6 @@ ensure_tmux_is_running() {
   fi
 }
 
-if [[ -z "$MYVIMRC" ]] && command -v tmux >/dev/null; then
-  ensure_tmux_is_running
-fi
+# if [[ -z "$MYVIMRC" ]] && command -v tmux >/dev/null; then
+#   ensure_tmux_is_running
+# fi

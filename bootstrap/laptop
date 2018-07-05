@@ -57,65 +57,60 @@ fi
 # 3. Install ASDF
 # ============================================================================
 
-# TODO: Are they going to make this easier to update?
-if ! __nan_has "asdf" ; then
-  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.4.3
-fi
-
-source "${HOME}/.asdf/asdf.sh"
+bash "${DOTFILES}/bootstrap/asdf"
 
 # ============================================================================
 # Install ASDF plugins/languages
 # ============================================================================
-
-install_asdf_plugin() {
-  local name="$1"
-
-  if ! asdf plugin-list | grep -Fq "$name"; then
-    asdf plugin-add "$name"
-  fi
-}
-
-install_asdf_plugin "ruby"
-install_asdf_plugin "python"
-# install_asdf_plugin "elixir"
-install_asdf_plugin "nodejs"
-
-install_asdf_language() {
-  local language="$1"
-  local version
-  version="$(asdf list-all "$language" | grep '^[0-9]' | grep -v '[a-z]' | tail -1)"
-
-  if ! asdf list "$language" | grep -Fq "$version"; then
-    asdf install "$language" "$version"
-    asdf global "$language" "$version"
-  fi
-}
-
-# ASDF: Language-specific functions
-gem_install_or_update() {
-  if gem list "$1" --installed > /dev/null; then
-    gem update "$@"
-  else
-    gem install "$@"
-  fi
-}
-
-# ASDF: Install Ruby
-echo "Installing Ruby..."
-install_asdf_language "ruby"
-gem update --system
-gem_install_or_update "bundler"
-number_of_cores=$(sysctl -n hw.ncpu)
-bundle config --global jobs $((number_of_cores - 1))
-
-# ASDF: Install Python - todo
-echo "Installing Python..."
-# install_asdf_language "python"
-asdf install python 3.6.5
-asdf install python 2.7.14
-asdf global python 3.6.5 2.7.14
-
-echo "Installing webshit..."
-bash "$HOME/.asdf/plugins/nodejs/bin/import-release-team-keyring"
-install_asdf_language "nodejs"
+#
+# install_asdf_plugin() {
+#   local name="$1"
+#
+#   if ! asdf plugin-list | grep -Fq "$name"; then
+#     asdf plugin-add "$name"
+#   fi
+# }
+#
+# install_asdf_plugin "ruby"
+# install_asdf_plugin "python"
+# # install_asdf_plugin "elixir"
+# install_asdf_plugin "nodejs"
+#
+# install_asdf_language() {
+#   local language="$1"
+#   local version
+#   version="$(asdf list-all "$language" | grep '^[0-9]' | grep -v '[a-z]' | tail -1)"
+#
+#   if ! asdf list "$language" | grep -Fq "$version"; then
+#     asdf install "$language" "$version"
+#     asdf global "$language" "$version"
+#   fi
+# }
+#
+# # ASDF: Language-specific functions
+# gem_install_or_update() {
+#   if gem list "$1" --installed > /dev/null; then
+#     gem update "$@"
+#   else
+#     gem install "$@"
+#   fi
+# }
+#
+# # ASDF: Install Ruby
+# echo "Installing Ruby..."
+# install_asdf_language "ruby"
+# gem update --system
+# gem_install_or_update "bundler"
+# number_of_cores=$(sysctl -n hw.ncpu)
+# bundle config --global jobs $((number_of_cores - 1))
+#
+# # ASDF: Install Python - todo
+# echo "Installing Python..."
+# # install_asdf_language "python"
+# asdf install python 3.6.5
+# asdf install python 2.7.14
+# asdf global python 3.6.5 2.7.14
+#
+# echo "Installing webshit..."
+# bash "$HOME/.asdf/plugins/nodejs/bin/import-release-team-keyring"
+# install_asdf_language "nodejs"
