@@ -137,6 +137,7 @@ alias tks="tmux kill-server"
 # binaries
 # ============================================================================
 
+alias curl='curl --config "${DOTFILES}/curl/dot.curlrc"'
 alias brokensymlinks='find . -type l ! -exec test -e {} \; -print'
 alias mdl='mdl --config "${DOTFILES}/mdl/dot.mdlrc"'
 alias o='open'

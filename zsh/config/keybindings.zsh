@@ -67,7 +67,7 @@ bindkey           '^[[1;5C' vi-forward-word
 bindkey -M vicmd  '^[[1;5C' vi-forward-word
 
 # C-n to partially accept
-bindkey           '^N'  forward-word
+bindkey           '^N'      forward-word
 
 
 # ----------------------------------------------------------------------------

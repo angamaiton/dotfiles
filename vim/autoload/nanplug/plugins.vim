@@ -77,9 +77,6 @@ function! nanplug#plugins#LoadAll() abort
   " add gS on char to smart split lines at char, like comma lists and html tags
   Plug 'AndrewRadev/splitjoin.vim'
 
-  " Compatible with Neovim or Vim with this patch level
-  " Plug 'neomake/neomake', PlugIf(has('patch-7.4.503'))
-
   Plug 'w0rp/ale'
 
   " automatically clear search highlight; TODO: implement without plugin
@@ -103,6 +100,8 @@ function! nanplug#plugins#LoadAll() abort
   " . command after plugins
   Plug 'tpope/vim-repeat'
 
+  " Plug 'tpope/vim-sleuth'
+
   " A-k/A-j to move current line up/down
   Plug 'matze/vim-move'
 
@@ -111,8 +110,11 @@ function! nanplug#plugins#LoadAll() abort
   Plug g:nan#vim_dir . '/mine/vim-hr'
 
   Plug 'kana/vim-operator-user'
+  " DISABLING: motion commands not working
   " gcc to toggle comment
   " Plug 'tyru/caw.vim', { 'on': [ '<Plug>(caw' ] }
+  " Comments
+  Plug 'tomtom/tcomment_vim'
   " <Leader>s(a/r/d) to modify surrounding the pending operator
   Plug 'rhysd/vim-operator-surround', { 'on': [ '<Plug>(operator-surround' ] }
   " Plug 'tpope/vim-surround'
@@ -219,7 +221,8 @@ function! nanplug#plugins#LoadAll() abort
   " Language: Dart
   " ==========================================================================
 
-  Plug 'dart-lang/dart-vim-plugin'
+  Plug g:nan#vim_dir . '/mine/vim-dart'
+  " Plug 'dart-lang/dart-vim-plugin'
 
   " --------------------------------------------------------------------------
   " Language: JavaScript and derivatives
@@ -312,9 +315,6 @@ function! nanplug#plugins#LoadAll() abort
   " --------------------------------------------------------------------------
   " VCS signs
   " --------------------------------------------------------------------------
-
-  " Comments
-  Plug 'tomtom/tcomment_vim'
 
 endfunction
 

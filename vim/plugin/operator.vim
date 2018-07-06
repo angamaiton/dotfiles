@@ -12,6 +12,9 @@ silent! unmap gsr
 silent! unmap <Leader>c
 
 if nanplug#Exists('caw.vim')
+  " By default works like tcomment_vim (instantly)
+  let g:caw_operator_keymappings = 1
+
   nmap gc   <Plug>(caw:prefix)
   xmap gc   <Plug>(caw:prefix)
 
@@ -19,6 +22,9 @@ if nanplug#Exists('caw.vim')
   xmap gcc   <Plug>(caw:hatpos:toggle)
 
   map <silent>  gsc    <Plug>(caw:hatpos:toggle:operator)
+
+  nmap <C-\> <Plug>(caw:hatpos:toggle)
+  xmap <C-\> <Plug>(caw:hatpos:toggle)
 endif
 
 if nanplug#Exists('vim-operator-surround')

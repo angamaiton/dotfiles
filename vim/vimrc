@@ -144,6 +144,25 @@ set hidden
 " For dealing with sluggishness
 set lazyredraw
 
+" ----------------------------------------------------------------------------
+" Formatting
+" ----------------------------------------------------------------------------
+
+set formatoptions=
+set formatoptions+=c                  " Auto-wrap comments using textwidth
+set formatoptions+=r                  " Continue comments by default
+set formatoptions-=o                  " do not continue comment using o or O
+set formatoptions+=q                  " continue comments with gq
+set formatoptions-=a                  " auto-gq on type in comments?
+set formatoptions+=n                  " Recognize numbered lists
+set formatoptions+=2                  " Use indent from 2nd line of a paragraph
+set formatoptions-=l                  " break lines that are already long?
+set formatoptions+=1                  " Break before 1-letter words
+" Vim 7.4 only: no // comment when joining commented lines
+if v:version >= 704 | set formatoptions+=j | endif
+
+set nrformats-=octal                  " never use octal when <C-x> or <C-a>
+
 " ==========================================================================
 " Plugins
 " ==========================================================================
@@ -246,7 +265,7 @@ if !&modifiable | set fileformat=unix | endif
 " ==========================================================================
 " Indenting - overridden by indent plugins
 " ==========================================================================
-
+"
 set autoindent                        " indent when creating newline
 
 " For autoindent, use same spaces/tabs mix as previous line, even if
@@ -296,6 +315,8 @@ set backspace=indent,eol,start
 " ============================================================================
 " Filetypes
 " ============================================================================
+
+let g:dart_style_guide = 2
 
 " ----------------------------------------
 " Filetype: python
