@@ -30,12 +30,12 @@ export FZF_DEFAULT_OPTS='--height=20 --min-height=4'
 # ============================================================================
 
 __nan_has "nvim" && {
-  alias e="nvim"
+  # alias e="nvim"
 
   export EDITOR="nvim"
   export VISUAL="nvim"
 
-  __nan_has "nvr" && alias e="PYTHONWARNINGS=ignore nvr -s"
+  # __nan_has "nvr" && alias e="PYTHONWARNINGS=ignore nvr -s"
 }
 
 # ============================================================================

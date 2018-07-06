@@ -2,7 +2,15 @@
 
 function! nanplug#plugins#LoadAll() abort
 
+  " ============================================================================
+  " Meta/debugging
+  " ============================================================================
+
   Plug 'tweekmonster/startuptime.vim', { 'on': [ 'StartupTime' ] }
+
+  " `:Bufferize messages` to get messages (or any :command) in a new buffer
+  let g:bufferize_command = 'tabnew'
+  Plug 'AndrewRadev/bufferize.vim', { 'on': [ 'Bufferize' ] }
 
   " ==========================================================================
   " Colorscheme
@@ -10,6 +18,13 @@ function! nanplug#plugins#LoadAll() abort
 
   " Plug 'rakr/vim-two-firewatch'
   Plug 'joshdick/onedark.vim'
+
+  " ==========================================================================
+  " Embedded filetype support
+  " ==========================================================================
+
+  " tyru/caw.vim, some others use this to determine inline embedded filetypes
+  Plug 'Shougo/context_filetype.vim'
 
   " ==========================================================================
   " Commands
@@ -53,13 +68,6 @@ function! nanplug#plugins#LoadAll() abort
   Plug 'junegunn/vim-easy-align'
 
   " ==========================================================================
-  " Embedded filetype support
-  " ==========================================================================
-
-  " tyru/caw.vim, some others use this to determine inline embedded filetypes
-  Plug 'Shougo/context_filetype.vim'
-
-  " ==========================================================================
   " Input, syntax, spacing
   " ==========================================================================
 
@@ -90,7 +98,7 @@ function! nanplug#plugins#LoadAll() abort
   " Editing keys
   " ==========================================================================
 
-  Plug 'tpope/vim-unimpaired'
+  " Plug 'tpope/vim-unimpaired'
 
   " . command after plugins
   Plug 'tpope/vim-repeat'
@@ -107,8 +115,35 @@ function! nanplug#plugins#LoadAll() abort
   " Plug 'tyru/caw.vim', { 'on': [ '<Plug>(caw' ] }
   " <Leader>s(a/r/d) to modify surrounding the pending operator
   Plug 'rhysd/vim-operator-surround', { 'on': [ '<Plug>(operator-surround' ] }
+  " Plug 'tpope/vim-surround'
   " <Leader>c to toggle CamelCase/snak_e the pending operator
   Plug 'tyru/operator-camelize.vim', { 'on': [ '<Plug>(operator-camelize' ] }
+
+  " ============================================================================
+  " Text objects
+  " ============================================================================
+
+  " Some textobjs are lazy loaded since they are ~4ms slow to load.
+  " See after/plugin/textobj.vim to see how they're mapped.
+  " -       Base textobj plugin
+  Plug 'kana/vim-textobj-user'
+  " - d/D   for underscore section (e.g. `did` on foo_b|ar_baz -> foo__baz)
+  " Plug 'machakann/vim-textobj-delimited', { 'on': [
+  "       \   '<Plug>(textobj-delimited'
+  "       \ ] }
+  " " - i     for indent level
+  " Plug 'kana/vim-textobj-indent', { 'on': [ '<Plug>(textobj-indent' ] }
+  " " - l     for current line
+  Plug 'kana/vim-textobj-line', { 'on': [ '<Plug>(textobj-line' ] }
+  " " - P     for last paste
+  Plug 'gilligan/textobj-lastpaste', { 'on': [ '<Plug>(textobj-lastpaste' ] }
+  " " - u     for url
+  " Plug 'mattn/vim-textobj-url', { 'on': [ '<Plug>(textobj-url' ] }
+  " " - b     for any block type (parens, braces, quotes, ltgt)
+  Plug 'kana/vim-textobj-function', { 'on': [ '<Plug>(textobj-function' ] }
+  Plug 'rhysd/vim-textobj-anyblock'
+  " - x     for xml attr like `data-content="everything"`
+  " Plug 'whatyouhide/vim-textobj-xmlattr'
 
   " ==========================================================================
   " Completion
@@ -208,6 +243,15 @@ function! nanplug#plugins#LoadAll() abort
   Plug 'keith/swift.vim'
 
   " ==========================================================================
+  " Language: .tmux.conf
+  " ==========================================================================
+
+  " Older syntax but has neat features
+  "Plug 'tmux-plugins/vim-tmux'
+  " Less feature filled but this is upstream for $VIMRUNTIME and more up-to-date
+  Plug 'ericpruitt/tmux.vim', { 'rtp': 'vim/' }
+
+  " ==========================================================================
   " Language: VimL
   " ==========================================================================
 
@@ -216,6 +260,15 @@ function! nanplug#plugins#LoadAll() abort
 
   " Can't use <Enter> anymore if this is installed; why?
   " Plug 'lambdalisue/vim-backslash'
+
+  " ============================================================================
+  " Multiple languages
+  " ============================================================================
+
+  Plug 'itchyny/vim-parenmatch'
+
+  " special end syntax for various langs
+  Plug 'tpope/vim-endwise'
 
   " ==========================================================================
   " UI -- load last!

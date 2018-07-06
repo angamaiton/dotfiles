@@ -27,7 +27,7 @@ if nanplug#Exists('vim-operator-surround')
   map <silent>  gsr <Plug>(operator-surround-replace)
 endif
 
-if nanplug#Exists('vim-operator-surround')
+if nanplug#Exists('operator-camelize.vim')
   nmap <special> <Leader>c <Plug>(operator-camelize-toggle)
 endif
 
