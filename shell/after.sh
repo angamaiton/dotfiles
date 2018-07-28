@@ -52,7 +52,7 @@ __nan_has "fasd" && alias j="z"
 
 # ============================================================================
 
-# export PATH="${HOME}/development/flutter/bin:${PATH}"
+export PATH="${HOME}/Packages/flutter/bin:${PATH}"
 
 unset NAN_INIT
 export NAN_SOURCE="${NAN_SOURCE} }"

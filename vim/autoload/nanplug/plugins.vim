@@ -228,7 +228,8 @@ function! nanplug#plugins#LoadAll() abort
   " Language: JavaScript and derivatives
   " --------------------------------------------------------------------------
 
-  Plug 'neoclide/vim-jsx-improve'
+  " Plug 'neoclide/vim-jsx-improve'
+  Plug 'pangloss/vim-javascript'
 
   Plug 'elzr/vim-json'
 
@@ -263,6 +264,14 @@ function! nanplug#plugins#LoadAll() abort
 
   " Can't use <Enter> anymore if this is installed; why?
   " Plug 'lambdalisue/vim-backslash'
+
+  " ============================================================================
+  " Language: Ruby
+  " ============================================================================
+
+  Plug 'tpope/vim-rails'
+
+  Plug 'vim-ruby/vim-ruby'
 
   " ============================================================================
   " Multiple languages
