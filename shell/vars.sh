@@ -23,6 +23,7 @@ export XDG_CACHE_HOME="${HOME}/.cache"
 export XDG_CONFIG_HOME="${HOME}/.config"
 export XDG_DATA_HOME="${HOME}/.local/share"
 
+
 # ----------------------------------------------------------------------------
 # XDG: user-dirs
 # ----------------------------------------------------------------------------
@@ -72,8 +73,8 @@ export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 # export LESSHISTFILE=-
 
 # man
-export MANWIDTH=88
-export MANPAGER="$PAGER"
+## export MANWIDTH=88
+# export MANPAGER="$PAGER"
 
 export ASDF_DIR="${HOME}/.asdf"
 
@@ -88,5 +89,5 @@ export VISUAL="nvim"
 # pager
 # ----------------------------------------------------------------------------
 
-export PAGER="less"
-export GIT_PAGER="$PAGER"
+# export PAGER="less"
+# export GIT_PAGER="$PAGER"

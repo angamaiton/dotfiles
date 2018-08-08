@@ -215,7 +215,7 @@ function! nanplug#plugins#LoadAll() abort
   " Language: Crystal
   " ==========================================================================
 
-  Plug 'rhysd/vim-crystal'
+  " Plug 'rhysd/vim-crystal'
 
   " ==========================================================================
   " Language: Dart
@@ -223,6 +223,12 @@ function! nanplug#plugins#LoadAll() abort
 
   Plug g:nan#vim_dir . '/mine/vim-dart'
   " Plug 'dart-lang/dart-vim-plugin'
+
+  " ==========================================================================
+  " Language: Go
+  " ==========================================================================
+
+  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
   " --------------------------------------------------------------------------
   " Language: JavaScript and derivatives
@@ -239,6 +245,12 @@ function! nanplug#plugins#LoadAll() abort
 
   " Plug 'tpope/vim-markdown'
   Plug 'gabrielelana/vim-markdown'
+
+  " ============================================================================
+  " Language: OCaml (and ReasonML)
+  " ============================================================================
+
+  Plug 'reasonml-editor/vim-reason-plus'
 
   " ==========================================================================
   " Language: Swift
